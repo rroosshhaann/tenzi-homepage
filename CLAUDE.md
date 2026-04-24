@@ -24,7 +24,7 @@ No build step, no dependencies, no frameworks. The page runs as-is in any modern
 
 ## Visual system
 
-Extends **"Terminal Grid (Light)"** — defined in [`tenzi-resources/DESIGN_STANDARD.md`](https://github.com/rroosshhaann/tenzi-resources/blob/main/DESIGN_STANDARD.md). Cream background `#faf8f4`, white panels, single green accent `#2ca471`, Inter Tight + IBM Plex Mono.
+Extends **"Terminal Grid (Light)"** — defined in `../tenzi-resources/DESIGN_STANDARD.md` (sibling checkout). Cream background `#faf8f4`, white panels, single green accent `#2ca471`, Inter Tight + IBM Plex Mono.
 
 All design tokens (`--bg`, `--accent`, `--g700` etc.) are declared inline in the `<style>` block at the top of `index.html` and match the resources project verbatim. Do not introduce new tokens.
 
@@ -52,7 +52,7 @@ https://script.google.com/macros/s/AKfycbzO6crfhklS6kIOXOGNIBBSk9ZiIUdM1lESOw6hG
 | CTA clicks | `Events` | GET beacon via `Image()`; email column = `(cta: action_name)` |
 | Contact form submissions | `Contacts` | POST with `source: 'holding_page_contact'` flag |
 
-The Apps Script branches on `data.source` to route between the two sheets and fires a notification email to `roshan@tenzi.ai` for every contact submission. See [`tenzi-resources/CLAUDE.md`](https://github.com/rroosshhaann/tenzi-resources/blob/main/CLAUDE.md) for the full Apps Script source — the script is the single source of truth, lives in the linked Google Sheet, and is shared across both sites.
+The Apps Script branches on `data.source` to route between the two sheets and fires a notification email to `roshan@tenzi.ai` for every contact submission. See `../tenzi-resources/CLAUDE.md` (sibling checkout) for the full Apps Script source — the script is the single source of truth, lives in the linked Google Sheet, and is shared across both sites.
 
 ### Tracked CTAs (must stay in sync with `index.html`)
 
@@ -122,4 +122,4 @@ The page is one HTML file. To add a section:
 
 ## Sister project
 
-The free-data side at [`rroosshhaann/tenzi-resources`](https://github.com/rroosshhaann/tenzi-resources) defines the design system this page inherits and owns the canonical copy of the Apps Script. Changes to design tokens or the tracking schema should be made there first; this project follows.
+The free-data side at `../tenzi-resources/` (repo: `rroosshhaann/tenzi-resources`) defines the design system this page inherits and owns the canonical copy of the Apps Script. Changes to design tokens or the tracking schema should be made there first; this project follows.
