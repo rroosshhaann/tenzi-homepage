@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tenzi — AI for Australian insurance brokers</title>
+<meta name="description" content="Tenzi is building the AI platform that lets Authorised Representative insurance brokers scale, reduce cost to serve, and make insurance more accessible. Seed funded. Currently testing with design partners.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Terminal Grid — LIGHT theme (shared site tokens) */
+  --bg: #faf8f4;
+  --panel: #ffffff;
+  --panel-hover: #fafaf7;
+  --border: #e5e1d9;
+  --border-bright: #d3cec3;
+  --border-light: #ece8df;
+  --text: #1a1a1a;
+  --muted: #6b6560;
+  --dim: #a59f93;
+  --accent: #2ca471;
+  --accent-hover: #249765;
+
+  --g900: #0A4A45;
+  --g700: #0F766E;
+  --g500: #14A399;
+  --g300: #5EEAD4;
+  --g100: #CCFBF1;
+  --g50:  #F0FDFA;
+
+  --neg: #9c3b3b;
+
+  --radius: 6px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body { background: var(--bg); }
+body {
+  font: 14px/1.7 'Inter Tight', Inter, system-ui, -apple-system, sans-serif;
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); }
+
+.wrap { max-width: 1100px; margin: 0 auto; padding: 28px 28px 8px; }
+
+/* Nav */
+.nav-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 56px;
+}
+.nav-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--panel);
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.nav-badge::before {
+  content: '';
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent);
+  display: inline-block;
+  box-shadow: 0 0 0 3px rgba(44,164,113,0.15);
+}
+
+/* Eyebrow */
+.eyebrow {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: inline-flex; align-items: center; gap: 8px;
+  margin-bottom: 20px;
+}
+.eyebrow::before {
+  content: '';
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent);
+  display: inline-block;
+}
+
+/* Hero */
+.hero { margin-bottom: 72px; max-width: 920px; }
+.hero h1 {
+  font-size: 56px;
+  letter-spacing: -0.03em;
+  line-height: 1.02;
+  font-weight: 500;
+  color: var(--g900);
+  margin-bottom: 28px;
+  text-wrap: balance;
+}
+.hero h1 .mark {
+  color: var(--accent);
+  font-style: normal;
+}
+.hero-lede {
+  font-size: 18px;
+  color: var(--muted);
+  line-height: 1.55;
+  max-width: 720px;
+  text-wrap: pretty;
+}
+.hero-lede strong { color: var(--text); font-weight: 500; }
+
+/* Section label */
+.section-label {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 24px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: baseline; justify-content: space-between;
+}
+.section-label .section-num { color: var(--dim); }
+
+/* Vision — three numbered theses */
+.vision { margin-bottom: 72px; }
+.thesis-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.thesis {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px 26px 30px;
+  transition: border-color 0.15s, background 0.15s;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.thesis:hover { border-color: var(--border-bright); background: var(--panel-hover); }
+.thesis-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+}
+.thesis-num {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: var(--dim);
+}
+.thesis-tag {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.thesis h2 {
+  font-size: 22px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  font-weight: 500;
+  color: var(--g900);
+  text-wrap: balance;
+}
+.thesis p {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--muted);
+  text-wrap: pretty;
+}
+.thesis p strong { color: var(--text); font-weight: 500; }
+
+/* Status block */
+.status-section { margin-bottom: 72px; }
+.status-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 10px;
+}
+.status-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 26px 28px;
+  transition: border-color 0.15s;
+}
+.status-card:hover { border-color: var(--border-bright); }
+.status-card h3 {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.status-card h3 .tag {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.status-list { list-style: none; padding: 0; margin: 0; }
+.status-list li {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 16px;
+  padding: 10px 0;
+  border-bottom: 1px dashed var(--border);
+  font-size: 13.5px;
+  line-height: 1.55;
+}
+.status-list li:last-child { border-bottom: none; }
+.status-list .k {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-top: 2px;
+}
+.status-list .v { color: var(--text); }
+.status-list .v strong { font-weight: 500; }
+.status-list .v .hint { display: block; color: var(--muted); font-size: 12.5px; margin-top: 3px; }
+
+.status-round {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.round-state {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-light);
+}
+.round-state .label {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.round-state .value {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.round-state .pill {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--neg);
+  background: rgba(156,59,59,0.08);
+  border: 1px solid rgba(156,59,59,0.25);
+  padding: 3px 8px;
+  border-radius: 2px;
+}
+.round-state .pill.open {
+  color: var(--g700);
+  background: var(--g100);
+  border-color: rgba(15,118,110,0.25);
+}
+.round-body p {
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: var(--muted);
+  text-wrap: pretty;
+}
+.round-body p strong { color: var(--text); font-weight: 500; }
+
+/* Resources strip — full-width card */
+.resources-section { margin-bottom: 72px; }
+.resources-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 34px 36px;
+  position: relative;
+  overflow: hidden;
+  background-image: radial-gradient(ellipse at 100% 0%, rgba(44,164,113,0.06), transparent 55%);
+  transition: border-color 0.15s;
+}
+.resources-card:hover { border-color: var(--border-bright); }
+.resources-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 22px;
+  flex-wrap: wrap;
+}
+.resources-head h2 {
+  font-size: 28px;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  font-weight: 500;
+  color: var(--g900);
+  margin-bottom: 8px;
+  text-wrap: balance;
+  max-width: 640px;
+}
+.resources-head p {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.6;
+  max-width: 640px;
+  text-wrap: pretty;
+}
+.resources-head p strong { color: var(--text); font-weight: 500; }
+
+.resources-cta {
+  flex-shrink: 0;
+}
+.btn-resources {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 18px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  font: 500 11px 'IBM Plex Mono', ui-monospace, monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+.btn-resources:hover { background: var(--accent-hover); }
+
+.resources-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--border-light);
+}
+.resources-item {
+  padding: 18px 20px 16px 0;
+  border-right: 1px solid var(--border-light);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.resources-item:last-child { border-right: none; padding-right: 0; }
+.resources-item:not(:first-child) { padding-left: 20px; }
+.resources-item .tag {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.resources-item .title {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--text);
+  line-height: 1.35;
+}
+.resources-item .sub {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+/* Contact */
+.contact-section { margin-bottom: 64px; }
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 10px;
+}
+.contact-copy {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.contact-copy h2 {
+  font-size: 24px;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  font-weight: 500;
+  color: var(--g900);
+  text-wrap: balance;
+}
+.contact-copy p {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.65;
+}
+.contact-copy p strong { color: var(--text); font-weight: 500; }
+.contact-direct {
+  padding-top: 18px;
+  border-top: 1px dashed var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.contact-direct .label {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.contact-direct a {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 15px;
+  color: var(--text);
+  text-decoration: none;
+  letter-spacing: -0.01em;
+  transition: color 0.15s;
+}
+.contact-direct a:hover { color: var(--accent); }
+
+.contact-form {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px 30px;
+}
+.contact-form h3 {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.contact-form .help {
+  font-size: 12.5px;
+  color: var(--muted);
+  margin-bottom: 20px;
+  line-height: 1.55;
+}
+.field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+.field label {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  padding: 10px 12px;
+  background: var(--bg);
+  border: 1px solid var(--border-bright);
+  border-radius: 4px;
+  color: var(--text);
+  font: 13.5px 'Inter Tight', Inter, system-ui, sans-serif;
+  outline: none;
+  transition: border-color 0.15s, background 0.15s;
+}
+.field textarea { min-height: 96px; resize: vertical; font-family: 'Inter Tight', Inter, system-ui, sans-serif; line-height: 1.55; }
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: var(--accent);
+  background: var(--panel);
+}
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.field-row .field { margin-bottom: 14px; }
+
+.btn-submit {
+  width: 100%;
+  padding: 12px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  font: 500 11px 'IBM Plex Mono', ui-monospace, monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  transition: background 0.15s;
+  margin-top: 6px;
+}
+.btn-submit:hover { background: var(--accent-hover); }
+.form-success {
+  display: none;
+  padding: 14px 0 2px;
+}
+.form-success .tick {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+.form-success p {
+  font-size: 13.5px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.form-success p strong { color: var(--text); font-weight: 500; }
+.form.submitted .form-inner { display: none; }
+.form.submitted .form-success { display: block; }
+.no-spam {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin-top: 12px;
+  text-align: center;
+}
+
+/* Footer */
+.page-footer {
+  padding: 36px 0 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--border);
+  margin-top: 40px;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.page-footer .left { color: var(--dim); }
+.page-footer .right { display: flex; gap: 20px; flex-wrap: wrap; }
+.page-footer a { color: var(--muted); text-decoration: none; }
+.page-footer a:hover { color: var(--text); }
+
+/* Entry motion */
+@media (prefers-reduced-motion: no-preference) {
+  .fade-up { animation: fadeUp 0.5s cubic-bezier(.2,.7,.2,1) both; }
+  .fade-up.d1 { animation-delay: 0.06s; }
+  .fade-up.d2 { animation-delay: 0.12s; }
+  .fade-up.d3 { animation-delay: 0.18s; }
+  .fade-up.d4 { animation-delay: 0.24s; }
+  .fade-up.d5 { animation-delay: 0.30s; }
+  .fade-up.d6 { animation-delay: 0.36s; }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Responsive */
+@media (max-width: 980px) {
+  .thesis-row { grid-template-columns: 1fr; }
+  .status-grid { grid-template-columns: 1fr; }
+  .resources-list { grid-template-columns: repeat(2, 1fr); }
+  .resources-item:nth-child(2) { border-right: none; padding-right: 0; }
+  .resources-item:nth-child(3) { border-left: none; padding-left: 0; border-top: 1px solid var(--border-light); padding-top: 18px; }
+  .resources-item:nth-child(4) { border-top: 1px solid var(--border-light); padding-top: 18px; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 44px; }
+}
+@media (max-width: 700px) {
+  .wrap { padding: 20px 18px 8px; }
+  .hero { margin-bottom: 52px; }
+  .hero h1 { font-size: 34px; }
+  .hero-lede { font-size: 15.5px; }
+  .resources-card { padding: 24px; }
+  .resources-list { grid-template-columns: 1fr; }
+  .resources-item { border-right: none !important; border-left: none !important; padding: 14px 0 !important; border-top: 1px solid var(--border-light) !important; }
+  .resources-item:first-child { border-top: none !important; }
+  .status-list li { grid-template-columns: 1fr; gap: 4px; }
+  .field-row { grid-template-columns: 1fr; }
+  .nav-bar { margin-bottom: 40px; }
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- Nav -->
+  <div class="nav-bar">
+    <svg style="height: 32px; width: auto;" viewBox="0 0 201 65" xmlns="http://www.w3.org/2000/svg" aria-label="Tenzi">
+      <defs>
+        <linearGradient id="tzArc1" x1="149.5" y1="149.5" x2="50.5" y2="50.5" gradientUnits="userSpaceOnUse" gradientTransform="matrix(0,0.89869949,-0.89869949,0,-36.102721,12.157382)">
+          <stop offset="0%" stop-color="#EC2BA6"/><stop offset="100%" stop-color="#F69068"/>
+        </linearGradient>
+        <linearGradient id="tzArc2" x1="50.5" y1="50.5" x2="149.5" y2="149.5" gradientUnits="userSpaceOnUse" gradientTransform="matrix(0,0.89869949,-0.89869949,0,-36.102721,12.157382)">
+          <stop offset="0%" stop-color="#762BB7"/><stop offset="100%" stop-color="#2FC2EF"/>
+        </linearGradient>
+      </defs>
+      <g transform="matrix(0.26458333,0,0,0.26458333,57.148859,-3.1761411)">
+        <path d="M -170.45829,146.51296 A 62.912174,62.912174 0 0 1 -81.487046,57.541706" fill="none" stroke-width="46.7324" stroke="url(#tzArc1)"/>
+        <path d="M -81.487046,57.541706 A 62.912174,62.912174 0 0 1 -170.45829,146.51296" fill="none" stroke-width="46.7324" stroke="url(#tzArc2)"/>
+        <path fill="#1C233C" d="m 39.583,126.27798 c 0,3.584 0.82655,6.19256 2.381331,8.45273 2.900177,4.0254 7.716717,2.77592 9.41032,2.80066 0.937305,0.0137 4.473398,-0.64583 8.569739,-2.29026 l 8.499084,17.63907 c -6.312247,5.85502 -20.541608,7.83505 -24.596805,7.32864 -10.66913,-1.33235 -16.750013,-2.54016 -22.126013,-7.27616 -5.248,-4.864 -9.593656,-12.25468 -9.593656,-24.92668 V 88.837979 H -2.8328219 l 10e-8,-19.453551 c 0,0 9.8829521,0.242069 12.3588309,-2.51327 C 11.844938,64.290484 11.93455,62.376588 12.127,48.634171 L 39.339521,48.305151 39.583,67.862684 H 63.874974 V 88.837979 H 39.583 Z m 81.40821,-64.320001 c 9.344,0 17.664,2.24 24.96,6.72 7.424,4.48 13.184,10.56 17.28,18.24 4.096,7.680001 6.144,16.192001 6.144,25.536001 0,3.584 -0.256,5.38713 -0.768,8.33113 l -69.335648,-0.73044 c 2.431998,5.888 5.695998,10.304 9.791998,13.248 4.096,2.816 9.408,4.224 15.936,4.224 3.968,0 7.808,-0.832 11.52,-2.496 3.84,-1.664 10.98714,-6.09531 13.16314,-8.91131 l 14.40555,14.23583 c -5.69739,6.528 -10.304,11.52 -17.472,14.976 -7.04,3.456 -15.168,5.184 -24.384,5.184 -10.368,0 -19.52,-2.176 -27.455998,-6.528 -7.936,-4.48 -14.08,-10.56 -18.432,-18.24 -4.352,-7.68 -6.041042,-13.82121 -6.041042,-23.29321 0,-9.472 2.112,-18.048 6.336,-25.728001 4.352,-7.68 10.368,-13.696 18.048,-18.048 7.68,-4.48 16.448,-6.72 26.304,-6.72 z m 20.95165,42.384701 c -0.896,-4.863996 -3.456,-12.048701 -7.68,-14.736701 -4.096,-2.688 -7.44765,-4.032 -13.46365,-4.032 -6.272,0 -10.00765,1.536 -14.61565,4.608 -4.608,2.944 -7.039998,9.936701 -7.295998,14.160701 z"/>
+      </g>
+    </svg>
+    <span class="nav-badge">Seed funded · In stealth</span>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero fade-up">
+    <div class="eyebrow">Tenzi · Broker Workflow Automation</div>
+    <h1>AI that lets brokers <em class="mark">grow their book, not their burden</em>.</h1>
+    <p class="hero-lede">
+      Tenzi is the operating platform for <strong>Australian insurance brokers</strong> — the leverage to write more business and serve more clients without the weight that usually comes with it.
+    </p>
+  </section>
+
+  <!-- Vision — 3 numbered theses -->
+  <section class="vision">
+    <div class="section-label"><span>Why we're building this</span><span class="section-num">01 / 03</span></div>
+    <div class="thesis-row">
+      <article class="thesis fade-up d1">
+        <div class="thesis-head">
+          <span class="thesis-num">01</span>
+          <span class="thesis-tag">The stake</span>
+        </div>
+        <h2>Insurance has never mattered more.</h2>
+        <p>Climate volatility, rising asset values, thinner household buffers. The cost of being under-insured has moved from an inconvenience to a structural risk for Australian households and small businesses. <strong>Well-placed cover, delivered at volume, matters more than it ever has.</strong></p>
+      </article>
+
+      <article class="thesis fade-up d2">
+        <div class="thesis-head">
+          <span class="thesis-num">02</span>
+          <span class="thesis-tag">The gap</span>
+        </div>
+        <h2>Brokers are the channel — and they're out of leverage.</h2>
+        <p>Brokers are the ones sitting across the table from real clients. To grow their book without grinding themselves down, they need the <strong>tools to move faster on every policy</strong> — and deliver the same quality of advice at many times the volume.</p>
+      </article>
+
+      <article class="thesis fade-up d3">
+        <div class="thesis-head">
+          <span class="thesis-num">03</span>
+          <span class="thesis-tag">The tool</span>
+        </div>
+        <h2>AI is the unlock. This market is about to move fast.</h2>
+        <p>Purpose-built AI, wired into the workflow a broker actually runs — new business, renewals, claims — collapses the time per policy and <strong>changes the economics of how much a broker can profitably write</strong>. The transformation is not theoretical. It's arriving now.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- Status -->
+  <section class="status-section">
+    <div class="section-label"><span>Where we are</span><span class="section-num">02 / 03</span></div>
+
+    <div class="status-grid">
+      <div class="status-card fade-up d1">
+        <h3>Company <span class="tag">Snapshot</span></h3>
+        <ul class="status-list">
+          <li>
+            <span class="k">Stage</span>
+            <span class="v"><strong>Seed funded.</strong> <span class="hint">Building the core platform alongside our first cohort of brokers.</span></span>
+          </li>
+          <li>
+            <span class="k">Focus</span>
+            <span class="v"><strong>General insurance, Australia.</strong> <span class="hint">Authorised Representative brokers operating under AFSL networks.</span></span>
+          </li>
+          <li>
+            <span class="k">Platform</span>
+            <span class="v"><strong>In active testing with design partners.</strong> <span class="hint">New business, renewals, claims — end-to-end broker workflow.</span></span>
+          </li>
+          <li>
+            <span class="k">Based</span>
+            <span class="v"><strong>Melbourne, Australia.</strong></span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="status-card fade-up d2">
+        <h3>Design partner program <span class="tag">Cohorts</span></h3>
+        <div class="status-round">
+          <div class="round-state">
+            <span class="label">Current round</span>
+            <span class="value">Cohort 01 <span class="pill">Full</span></span>
+          </div>
+          <div class="round-state">
+            <span class="label">Next round</span>
+            <span class="value">Cohort 02 <span class="pill open">Opening soon</span></span>
+          </div>
+          <div class="round-body">
+            <p>We're working hand-in-hand with a small group of brokers shaping the product in real books. <strong>Cohort 01 is fully subscribed.</strong> If you're a broker who wants to be considered for Cohort 02, get in touch below and we'll keep you on the shortlist.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Resources dedicated card -->
+  <section class="resources-section">
+    <div class="section-label"><span>Free for the industry</span><span class="section-num">03 / 03</span></div>
+
+    <div class="resources-card fade-up">
+      <div class="resources-head">
+        <div>
+          <h2>The research we run to build Tenzi, published free at resources.tenzi.ai.</h2>
+          <p>As part of our product design work we produce <strong>data and tools that don't exist anywhere else</strong> — ASIC register movement dashboards, AR profile data, operating runbooks for new business, renewals and claims. We publish it all for the industry, no paywall, no lead-gen gate.</p>
+        </div>
+        <div class="resources-cta">
+          <a class="btn-resources" href="https://resources.tenzi.ai" target="_blank" rel="noopener" onclick="trackCta('resources_click')">
+            Open resources.tenzi.ai
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="resources-list">
+        <div class="resources-item">
+          <span class="tag">Dashboard</span>
+          <span class="title">GI AR movement dashboard</span>
+          <span class="sub">Monthly read on where ARs are joining, leaving and switching AFSLs.</span>
+        </div>
+        <div class="resources-item">
+          <span class="tag">Data explainer</span>
+          <span class="title">GI broker AR profile</span>
+          <span class="sub">Who the individual ARs actually are — tenure, geography, concentration.</span>
+        </div>
+        <div class="resources-item">
+          <span class="tag">Runbooks</span>
+          <span class="title">New business · Renewals · Claims</span>
+          <span class="sub">Step-by-step operator playbooks lifted from design partner workflows.</span>
+        </div>
+        <div class="resources-item">
+          <span class="tag">Cadence</span>
+          <span class="title">Monthly brief</span>
+          <span class="sub">One email a month when new data lands. No marketing.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact-section">
+    <div class="section-label"><span>Get in touch</span><span class="section-num">— · contact</span></div>
+
+    <div class="contact-grid">
+      <div class="contact-copy fade-up d1">
+        <div>
+          <h2>Talk to us.</h2>
+          <p>Whether you're a <strong>broker looking at Cohort 02</strong>, a licensee exploring where AI sits in your book, a journalist, or a potential collaborator — send us a note and we'll come back to you.</p>
+        </div>
+        <p>We're a small team. Every message is read by a human.</p>
+        <div class="contact-direct">
+          <span class="label">Direct</span>
+          <a href="/cdn-cgi/l/email-protection#442c2128282b0430212a3e2d6a252d" onclick="trackCta('email_click')"><span class="__cf_email__" data-cfemail="ed8588818182ad9988839784c38c84">[email&#160;protected]</span></a>
+        </div>
+      </div>
+
+      <form class="contact-form form fade-up d2" id="contactForm" onsubmit="return submitContact(event)">
+        <div class="form-inner">
+          <h3>Send us a message</h3>
+          <p class="help">Let us know who you are and what you'd like to discuss. We'll reply from <strong><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="94fcf1f8f8fbd4e0f1faeefdbaf5fd">[email&#160;protected]</a></strong>.</p>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="c-name">Name</label>
+              <input type="text" id="c-name" name="name" required autocomplete="name">
+            </div>
+            <div class="field">
+              <label for="c-email">Email</label>
+              <input type="email" id="c-email" name="email" required autocomplete="email" placeholder="you@yourbrokerage.com.au">
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="c-org">Organisation</label>
+              <input type="text" id="c-org" name="organisation" autocomplete="organization">
+            </div>
+            <div class="field">
+              <label for="c-role">I am a…</label>
+              <select id="c-role" name="role" required>
+                <option value="" disabled selected>Select one</option>
+                <option value="broker">Broker / Authorised Representative</option>
+                <option value="licensee">Licensee / insurer</option>
+                <option value="press">Journalist / press</option>
+                <option value="investor">Investor</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="c-interest">What's this about?</label>
+            <select id="c-interest" name="interest" required>
+              <option value="" disabled selected>Select one</option>
+              <option value="cohort">Cohort 02 — design partner spot</option>
+              <option value="partnership">Partnership / integration</option>
+              <option value="resources">Question about resources.tenzi.ai</option>
+              <option value="press">Media / press</option>
+              <option value="general">Something else</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="c-message">Message</label>
+            <textarea id="c-message" name="message" placeholder="A few lines is plenty." required></textarea>
+          </div>
+
+          <button type="submit" class="btn-submit">Send message</button>
+          <p class="no-spam">We reply from <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c9a1aca5a5a689bdaca7b3a0e7a8a0">[email&#160;protected]</a> · No list, no marketing</p>
+        </div>
+        <div class="form-success">
+          <div class="tick">✓ Message sent</div>
+          <p>Thanks — we've got it. Someone from the team will be back to you within <strong>two working days</strong>, straight from <strong><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="325a575e5e5d7246575c485b1c535b">[email&#160;protected]</a></strong>.</p>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="page-footer">
+    <div class="left">© 2026 Tenzi · Seed funded · Melbourne</div>
+    <div class="right">
+      <a href="https://resources.tenzi.ai" target="_blank" rel="noopener" onclick="trackCta('footer_resources')">Resources</a>
+      <a href="/cdn-cgi/l/email-protection#1d75787171725d6978736774337c74" onclick="trackCta('footer_email')"><span class="__cf_email__" data-cfemail="9ef6fbf2f2f1deeafbf0e4f7b0fff7">[email&#160;protected]</span></a>
+      <a href="https://www.linkedin.com/company/tenzi-ai" target="_blank" rel="noopener" onclick="trackCta('footer_linkedin')">LinkedIn</a>
+    </div>
+  </footer>
+
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // Same Apps Script endpoint as resources.tenzi.ai — column A=email/event, B=page, C=timestamp, D=ip, E=referrer.
+  var TRACKING_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzO6crfhklS6kIOXOGNIBBSk9ZiIUdM1lESOw6hGkqfE7qxz9MbVz47_ydAitFyFQtW/exec';
+
+  // Visitor IP (best-effort, cached for the contact form POST).
+  var visitorIp = '';
+  fetch('https://api.ipify.org?format=json')
+    .then(function(r) { return r.json(); })
+    .then(function(d) { visitorIp = d.ip; })
+    .catch(function() {});
+
+  function trackBeacon(eventName) {
+    var url = TRACKING_ENDPOINT
+      + '?email=' + encodeURIComponent(eventName)
+      + '&page=' + encodeURIComponent(document.title);
+    fetch('https://api.ipify.org?format=json')
+      .then(function(r) { return r.json(); })
+      .then(function(d) {
+        new Image().src = url + '&ip=' + encodeURIComponent(d.ip) + '&ref=' + encodeURIComponent(document.referrer);
+      })
+      .catch(function() {
+        new Image().src = url + '&ref=' + encodeURIComponent(document.referrer);
+      });
+  }
+  function trackCta(action) { trackBeacon('(cta: ' + action + ')'); }
+  trackBeacon('(page view)');
+
+  function submitContact(e) {
+    e.preventDefault();
+    var form = document.getElementById('contactForm');
+    var data = {
+      email: form.querySelector('#c-email').value,
+      page: document.title,
+      source: 'holding_page_contact',
+      timestamp: new Date().toISOString(),
+      ip: visitorIp,
+      referrer: document.referrer,
+      name: form.querySelector('#c-name').value,
+      organisation: form.querySelector('#c-org').value,
+      role: form.querySelector('#c-role').value,
+      interest: form.querySelector('#c-interest').value,
+      message: form.querySelector('#c-message').value
+    };
+    fetch(TRACKING_ENDPOINT, { method: 'POST', body: JSON.stringify(data), mode: 'no-cors' }).catch(function() {});
+    trackCta('contact_submit:' + (data.interest || 'unknown'));
+    form.classList.add('submitted');
+    return false;
+  }
+</script>
+
+</body>
+</html>
