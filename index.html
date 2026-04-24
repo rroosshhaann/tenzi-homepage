@@ -782,6 +782,11 @@ a { color: var(--accent); }
           <h3>Send us a message</h3>
           <p class="help">Let us know who you are and what you'd like to discuss. We'll reply from <strong><a href="mailto:roshan@tenzi.ai">roshan@tenzi.ai</a></strong>.</p>
 
+          <div aria-hidden="true" style="position:absolute; left:-10000px; top:auto; width:1px; height:1px; overflow:hidden;">
+            <label for="c-website">Website (leave blank — anti-spam)</label>
+            <input type="text" id="c-website" name="website" tabindex="-1" autocomplete="off">
+          </div>
+
           <div class="field-row">
             <div class="field">
               <label for="c-name">Name</label>
@@ -892,7 +897,8 @@ a { color: var(--accent); }
       organisation: form.querySelector('#c-org').value,
       role: form.querySelector('#c-role').value,
       interest: form.querySelector('#c-interest').value,
-      message: form.querySelector('#c-message').value
+      message: form.querySelector('#c-message').value,
+      website: form.querySelector('#c-website').value
     };
     fetch(TRACKING_ENDPOINT, { method: 'POST', body: JSON.stringify(data), mode: 'no-cors' }).catch(function() {});
     trackCta('contact_submit:' + (data.interest || 'unknown'));

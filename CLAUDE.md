@@ -69,21 +69,27 @@ Every CTA button must include `onclick="trackCta('action_name')"`. The contact f
 
 ## Contact form
 
-Form `#contactForm` collects: `name`, `email`, `organisation`, `role`, `interest`, `message`.
+Form `#contactForm` collects: `name`, `email`, `organisation`, `role`, `interest`, `message`. There is also a hidden **honeypot** input `website` (off-screen `aria-hidden` div) — real users never see it; bots that auto-fill all visible inputs will populate it.
 
 On submit, `submitContact(e)`:
 
-1. POSTs the form data (plus `source: 'holding_page_contact'`, `page`, `timestamp`, cached `visitorIp`, `referrer`) to the Apps Script endpoint with `mode: 'no-cors'`.
+1. POSTs the form data (plus `source: 'holding_page_contact'`, `page`, `timestamp`, cached `visitorIp`, `referrer`, and the honeypot `website` value) to the Apps Script endpoint with `mode: 'no-cors'`.
 2. Fires `trackCta('contact_submit:' + interest)`.
 3. Adds the `submitted` class to the form, swapping the input view for the success view.
 
-Server-side, the Apps Script writes a row to the **`Contacts`** sheet with columns:
+Server-side, the Apps Script:
 
-```
-Timestamp | Name | Email | Organisation | Role | Interest | Message | Page | IP | Referrer
-```
+1. Drops the request silently if `data.website` is non-empty (honeypot caught a bot).
+2. Drops silently if the IP has already submitted ≥5 contacts in the last hour (rate limit, `PropertiesService`-backed).
+3. Otherwise writes a row to the **`Contacts`** sheet with columns:
 
-…and sends a notification email to `roshan@tenzi.ai` with `replyTo` set to the submitter so hitting Reply in Gmail goes straight back to them.
+   ```
+   Timestamp | Name | Email | Organisation | Role | Interest | Message | Page | IP | Referrer
+   ```
+
+4. Sends a notification email to `roshan@tenzi.ai` (wrapped in try/catch — quota exhaustion no longer breaks the row save) with `replyTo` set to the submitter so hitting Reply in Gmail goes straight back to them.
+
+The honeypot field MUST stay positioned off-screen (`position:absolute; left:-10000px; ...`) — `display:none` is the first thing modern bots skip. Do not move it inside `.field-row` or give it a visible class.
 
 ## Hosting & deployment
 
