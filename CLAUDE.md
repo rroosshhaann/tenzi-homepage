@@ -40,19 +40,39 @@ The resources design standard explicitly says it does not apply to the marketing
 
 ## Tracking
 
-Same Google Apps Script endpoint as `resources.tenzi.ai`:
+All client-side tracking is handled by **`track.js`** (checked into this repo, served at `https://tenzi.ai/track.js`). The same file is loaded by `resources.tenzi.ai`, so this is the **single source of truth** for every analytics beacon the two sites emit.
 
+Loaded at the bottom of `index.html`:
+
+```html
+<script src="https://tenzi.ai/track.js"></script>
+<script>tenziTrack.init({ site: 'marketing' });</script>
 ```
-https://script.google.com/macros/s/AKfycbzO6crfhklS6kIOXOGNIBBSk9ZiIUdM1lESOw6hGkqfE7qxz9MbVz47_ydAitFyFQtW/exec
-```
+
+`init` fires `(page view)` and starts a visibility-aware dwell timer that emits `(dwell: N)` on `pagehide`. The site tag (`marketing` / `resources`) goes into column F of the Events sheet so Looker Studio can filter by site.
+
+### What lands where
 
 | What | Sheet | Mechanism |
 |-|-|-|
-| Page views | `Events` | GET beacon via `Image()`; email column = `(page view)` |
-| CTA clicks | `Events` | GET beacon via `Image()`; email column = `(cta: action_name)` |
-| Contact form submissions | `Contacts` | POST with `source: 'holding_page_contact'` flag |
+| Page views | `Events` | `tenziTrack.init()` → GET beacon via `Image()`; email column = `(page view)` |
+| CTA clicks | `Events` | `tenziTrack.trackCta(action)` → email column = `(cta: action_name)` |
+| Dwell time (seconds visible) | `Events` | `pagehide` → `fetch(keepalive)` GET; email column = `(dwell: N)` |
+| Contact form submissions | `Contacts` | `tenziTrack.postForm({ source: 'holding_page_contact', ... })` |
 
-The Apps Script branches on `data.source` to route between the two sheets and fires a notification email to `roshan@tenzi.ai` for every contact submission. See `../tenzi-resources/CLAUDE.md` (sibling checkout) for the full Apps Script source — the script is the single source of truth, lives in the linked Google Sheet, and is shared across both sites.
+The Apps Script branches on `data.source` (`holding_page_contact` → `Contacts` sheet + notify email; everything else → `Events`) and fires a notification email to `roshan@tenzi.ai` for every contact submission. See `../tenzi-resources/apps-script.gs` (sibling checkout) for the source of truth — the deployed script lives in the linked Google Sheet. Edits must be mirrored there manually via Deploy > Manage deployments > New version.
+
+### `tenziTrack` API (from `track.js`)
+
+| Call | Purpose |
+|-|-|
+| `tenziTrack.init({ site })` | Fire page view, start dwell timer, cache visitor IP |
+| `tenziTrack.trackCta(action)` | Fire `(cta: action)` beacon |
+| `tenziTrack.trackBeacon(event)` | Fire arbitrary-named beacon |
+| `tenziTrack.postForm(data)` | POST JSON to endpoint; auto-adds `page`, `timestamp`, `referrer`, `site`, `ip` |
+| `tenziTrack.getVisitorIp()` | Cached IP (best-effort, may be empty) |
+
+Legacy globals `window.trackCta` and `window.trackBeacon` are also defined so existing inline `onclick="trackCta('...')"` attributes keep working.
 
 ### Tracked CTAs (must stay in sync with `index.html`)
 
@@ -73,8 +93,8 @@ Form `#contactForm` collects: `name`, `email`, `organisation`, `role`, `interest
 
 On submit, `submitContact(e)`:
 
-1. POSTs the form data (plus `source: 'holding_page_contact'`, `page`, `timestamp`, cached `visitorIp`, `referrer`, and the honeypot `website` value) to the Apps Script endpoint with `mode: 'no-cors'`.
-2. Fires `trackCta('contact_submit:' + interest)`.
+1. Calls `tenziTrack.postForm({ source: 'holding_page_contact', ...fields })`. The shared tracker auto-adds `page`, `timestamp`, `referrer`, `site: 'marketing'`, and cached `ip`, then POSTs to the Apps Script endpoint with `mode: 'no-cors'`.
+2. Fires `tenziTrack.trackCta('contact_submit:' + interest)`.
 3. Adds the `submitted` class to the form, swapping the input view for the success view.
 
 Server-side, the Apps Script:
@@ -120,10 +140,10 @@ The page is one HTML file. To add a section:
 
 ## Things to keep working
 
-- Tracking script must remain at the bottom of `index.html` (everything depends on it).
-- `trackBeacon('(page view)')` must fire on load.
-- The contact form POST body must include `source: 'holding_page_contact'` — that's the routing flag for the Apps Script.
-- `mode: 'no-cors'` on the form POST — without it, the cross-origin response would fail and the success view would be skipped.
+- `<script src="https://tenzi.ai/track.js">` + `tenziTrack.init({ site: 'marketing' })` must remain at the bottom of `index.html` (everything depends on it).
+- `track.js` itself must continue to be served at the repo root so `https://tenzi.ai/track.js` resolves. Do not move it into a subfolder — resources.tenzi.ai loads it cross-origin via that exact URL.
+- The contact form POST must include `source: 'holding_page_contact'` — that's the routing flag for the Apps Script.
+- `mode: 'no-cors'` on the form POST (handled inside `tenziTrack.postForm`) — without it, the cross-origin response would fail and the success view would be skipped.
 - Visitor IP lookup (`api.ipify.org`) is best-effort; tracking still fires if it fails.
 
 ## Sister project

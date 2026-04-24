@@ -842,52 +842,25 @@ a { color: var(--accent); }
 
 </div>
 
+<script src="https://tenzi.ai/track.js"></script>
 <script>
-  // Same Apps Script endpoint as resources.tenzi.ai — column A=email/event, B=page, C=timestamp, D=ip, E=referrer.
-  var TRACKING_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzO6crfhklS6kIOXOGNIBBSk9ZiIUdM1lESOw6hGkqfE7qxz9MbVz47_ydAitFyFQtW/exec';
-
-  // Visitor IP (best-effort, cached for the contact form POST).
-  var visitorIp = '';
-  fetch('https://api.ipify.org?format=json')
-    .then(function(r) { return r.json(); })
-    .then(function(d) { visitorIp = d.ip; })
-    .catch(function() {});
-
-  function trackBeacon(eventName) {
-    var url = TRACKING_ENDPOINT
-      + '?email=' + encodeURIComponent(eventName)
-      + '&page=' + encodeURIComponent(document.title);
-    fetch('https://api.ipify.org?format=json')
-      .then(function(r) { return r.json(); })
-      .then(function(d) {
-        new Image().src = url + '&ip=' + encodeURIComponent(d.ip) + '&ref=' + encodeURIComponent(document.referrer);
-      })
-      .catch(function() {
-        new Image().src = url + '&ref=' + encodeURIComponent(document.referrer);
-      });
-  }
-  function trackCta(action) { trackBeacon('(cta: ' + action + ')'); }
-  trackBeacon('(page view)');
+  tenziTrack.init({ site: 'marketing' });
 
   function submitContact(e) {
     e.preventDefault();
     var form = document.getElementById('contactForm');
-    var data = {
-      email: form.querySelector('#c-email').value,
-      page: document.title,
+    var interest = form.querySelector('#c-interest').value;
+    tenziTrack.postForm({
       source: 'holding_page_contact',
-      timestamp: new Date().toISOString(),
-      ip: visitorIp,
-      referrer: document.referrer,
       name: form.querySelector('#c-name').value,
+      email: form.querySelector('#c-email').value,
       organisation: form.querySelector('#c-org').value,
       role: form.querySelector('#c-role').value,
-      interest: form.querySelector('#c-interest').value,
+      interest: interest,
       message: form.querySelector('#c-message').value,
       website: form.querySelector('#c-website').value
-    };
-    fetch(TRACKING_ENDPOINT, { method: 'POST', body: JSON.stringify(data), mode: 'no-cors' }).catch(function() {});
-    trackCta('contact_submit:' + (data.interest || 'unknown'));
+    });
+    tenziTrack.trackCta('contact_submit:' + (interest || 'unknown'));
     form.classList.add('submitted');
     return false;
   }
