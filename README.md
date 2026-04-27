@@ -37,6 +37,8 @@ Contact form submissions also send a notification email to `roshan@tenzi.ai`.
 
 The Apps Script that routes between sheets lives in the linked Google Sheet — see [`tenzi-resources/apps-script.gs`](https://github.com/rroosshhaann/tenzi-resources/blob/main/apps-script.gs) for the source of truth, and [`tenzi-resources/CLAUDE.md`](https://github.com/rroosshhaann/tenzi-resources/blob/main/CLAUDE.md) for schema notes.
 
+A private analytics dashboard on top of these events is built into the same web app — see [`tenzi-resources/DASHBOARD.md`](https://github.com/rroosshhaann/tenzi-resources/blob/main/DASHBOARD.md) for the full reference.
+
 ## Sister project
 
 [`rroosshhaann/tenzi-resources`](https://github.com/rroosshhaann/tenzi-resources) — free data, dashboards, and runbooks for Australian GI brokers, hosted at `resources.tenzi.ai`. Defines the **"Terminal Grid (Light)"** design system this site inherits.

@@ -62,6 +62,8 @@ Loaded at the bottom of `index.html`:
 
 The Apps Script branches on `data.source` (`holding_page_contact` → `Contacts` sheet + notify email; everything else → `Events`) and fires a notification email to `roshan@tenzi.ai` for every contact submission. See `../tenzi-resources/apps-script.gs` (sibling checkout) for the source of truth — the deployed script lives in the linked Google Sheet. Edits must be mirrored there manually via Deploy > Manage deployments > New version.
 
+The same Apps Script web app exposes a private analytics dashboard built on top of these events. Reference: [`../tenzi-resources/DASHBOARD.md`](https://github.com/rroosshhaann/tenzi-resources/blob/main/DASHBOARD.md).
+
 ### `tenziTrack` API (from `track.js`)
 
 | Call | Purpose |
