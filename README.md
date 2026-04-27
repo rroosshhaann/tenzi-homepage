@@ -9,7 +9,7 @@ Single self-contained HTML file. No build step, no framework, no JavaScript depe
 ```
 index.html
 ├── Nav (Tenzi logo · "Seed funded · In stealth" badge)
-├── Hero (vision tagline)
+├── Hero (outcome pitch — "More clients. Less admin.")
 ├── Why we're building this — three numbered theses
 ├── Where we are — Company snapshot · Design partner cohorts
 ├── Free for the industry — Resources card pointing at resources.tenzi.ai

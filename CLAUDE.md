@@ -31,7 +31,7 @@ All design tokens (`--bg`, `--accent`, `--g700` etc.) are declared inline in the
 Marketing-specific extensions to that base (this page only):
 
 - **Hero h1** at 56px (vs 28px on resource pages) — this is a landing page, not a data document
-- **Eyebrow with dot** prefix on the hero (`Tenzi · Broker Workflow Automation`)
+- **Eyebrow with dot** prefix on the hero (`For Australian insurance brokers · GI`)
 - **`.thesis-row`** — three numbered theses pattern, unique to this page
 - **`.status-grid`** — two-column status block (company snapshot + cohort state)
 - **`.resources-card`** — single full-width card with a 4-column item list, mirrors but does not duplicate the resources index
