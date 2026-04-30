@@ -31,18 +31,31 @@
   var site = '';
   var visitorIp = '';
   var ipRequested = false;
+  var ipPending = [];
   var dwellVisibleSince = null;
   var dwellAccumulatedMs = 0;
   var dwellFired = false;
 
+  // Callbacks registered while the ipify fetch is in flight are queued and
+  // all flushed together when it resolves — otherwise the page-view beacon
+  // wins the race against the IP lookup and lands in the sheet with an
+  // empty IP, breaking the dashboard's unique-visitor count.
   function ensureIp(cb) {
     if (visitorIp) { cb && cb(visitorIp); return; }
-    if (ipRequested) { cb && cb(''); return; }
+    if (cb) ipPending.push(cb);
+    if (ipRequested) return;
     ipRequested = true;
     fetch('https://api.ipify.org?format=json')
       .then(function(r) { return r.json(); })
-      .then(function(d) { visitorIp = d.ip || ''; cb && cb(visitorIp); })
-      .catch(function() { cb && cb(''); });
+      .then(function(d) { flushIp(d.ip || ''); })
+      .catch(function() { flushIp(''); });
+  }
+
+  function flushIp(ip) {
+    visitorIp = ip;
+    var pending = ipPending;
+    ipPending = [];
+    pending.forEach(function(f) { f(ip); });
   }
 
   function buildGetUrl(eventName, ip) {
