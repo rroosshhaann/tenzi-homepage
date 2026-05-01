@@ -65,6 +65,10 @@
       + '&ref=' + encodeURIComponent(document.referrer);
     if (site) url += '&site=' + encodeURIComponent(site);
     if (ip) url += '&ip=' + encodeURIComponent(ip);
+    // UA travels via URL param because Apps Script doGet doesn't expose
+    // request headers — same reason ip is passed explicitly. Used by the
+    // dashboard to flag scanner traffic (HeadlessChrome, Mimecast etc.).
+    if (navigator.userAgent) url += '&ua=' + encodeURIComponent(navigator.userAgent);
     return url;
   }
 
@@ -85,6 +89,7 @@
     if (data.referrer === undefined) data.referrer = document.referrer;
     data.site = data.site || site;
     data.ip = data.ip || visitorIp;
+    if (data.ua === undefined) data.ua = navigator.userAgent || '';
     return fetch(ENDPOINT, {
       method: 'POST',
       body: JSON.stringify(data),
