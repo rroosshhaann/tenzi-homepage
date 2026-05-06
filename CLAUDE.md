@@ -36,7 +36,12 @@ Marketing-specific extensions to that base (this page only):
 - **`.status-grid`** — two-column status block (company snapshot + cohort state)
 - **`.resources-card`** — single full-width card with a 4-column item list, mirrors but does not duplicate the resources index
 
-The resources design standard explicitly says it does not apply to the marketing site. In practice this page follows the same tokens and component conventions; the differences above are deliberate marketing affordances, not style drift.
+**Copy conventions (apply to visible page text, not these docs):**
+
+- **Outcome-led hero.** H1 is `More clients. Less admin.` (trade-off framing, green accent on "Less admin."). Subhead opens broker-perspective (`We take the slow, manual parts of new business, renewals, and claims off your desk, so the same broker, in the same hours, can write more and serve clients better.`). Avoid tech-led openers like "AI that…", "Software for…", or "Operating platform for…" in this section. The eyebrow (`For Australian insurance brokers · GI`) carries the audience targeting; the H1 carries the hook; the subhead describes what the software does.
+- **No em-dashes in body copy.** The visible page intentionally avoids `—`. Substitute contextually: comma for connectors, colon for list/summary introducers, parentheses for parentheticals, period to break into two sentences. The `<meta description>` is the one exception — it keeps one em-dash and the `Intelligent workflow automation software for Australian insurance brokers.` opener (different audience: search snippets and link previews benefit from the category descriptor).
+
+The resources design standard explicitly says it does not apply to the marketing site. In practice this page follows the same tokens and component conventions; the differences above (visual + copy) are deliberate marketing affordances, not style drift. Note that `tenzi-resources/DESIGN_STANDARD.md` says em-dash is the preferred connector — that rule applies to resources pages, not here.
 
 ## Tracking
 
