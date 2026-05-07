@@ -72,9 +72,22 @@
     return url;
   }
 
+  // Send a beacon URL to the endpoint. Prefers fetch+keepalive so the request
+  // survives page unload (fast bounce, same-tab outbound click, BFCache freeze);
+  // falls back to Image beacon for older browsers without keepalive support.
+  function sendUrl(url) {
+    try {
+      if (typeof fetch === 'function') {
+        fetch(url, { method: 'GET', keepalive: true, mode: 'no-cors' }).catch(function(){});
+        return;
+      }
+    } catch (err) {}
+    new Image().src = url;
+  }
+
   function trackBeacon(eventName) {
     ensureIp(function(ip) {
-      new Image().src = buildGetUrl(eventName, ip);
+      sendUrl(buildGetUrl(eventName, ip));
     });
   }
 
@@ -108,6 +121,20 @@
     }
   }
 
+  // BFCache restore — browsers (Chrome, Safari, Firefox) freeze pages on
+  // back/forward navigation and replay them without re-running init(). Without
+  // this hook those return visits never register a page view, and any extra
+  // visible time on the restored session is dropped because dwellFired is
+  // already true. Reset the dwell counters and fire a fresh page view so the
+  // restored session is counted.
+  function handlePageShow(e) {
+    if (!e || !e.persisted) return;
+    dwellFired = false;
+    dwellAccumulatedMs = 0;
+    dwellVisibleSince = (document.visibilityState === 'visible') ? Date.now() : null;
+    trackBeacon('(page view)');
+  }
+
   function fireDwell() {
     if (dwellFired) return;
     dwellFired = true;
@@ -117,15 +144,7 @@
     }
     var seconds = Math.min(Math.round(dwellAccumulatedMs / 1000), DWELL_MAX_SECONDS);
     if (seconds < DWELL_MIN_SECONDS) return;
-    var url = buildGetUrl('(dwell: ' + seconds + ')', visitorIp);
-    // fetch+keepalive survives page unload on modern browsers; fallback to Image beacon.
-    try {
-      if (typeof fetch === 'function') {
-        fetch(url, { method: 'GET', keepalive: true, mode: 'no-cors' }).catch(function(){});
-        return;
-      }
-    } catch (err) {}
-    new Image().src = url;
+    sendUrl(buildGetUrl('(dwell: ' + seconds + ')', visitorIp));
   }
 
   function startDwell() {
@@ -135,6 +154,7 @@
     document.addEventListener('visibilitychange', handleVisibility);
     window.addEventListener('pagehide', fireDwell);
     window.addEventListener('beforeunload', fireDwell);
+    window.addEventListener('pageshow', handlePageShow);
   }
 
   function init(opts) {

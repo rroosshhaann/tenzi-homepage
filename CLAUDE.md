@@ -54,15 +54,15 @@ Loaded at the bottom of `index.html`:
 <script>tenziTrack.init({ site: 'marketing' });</script>
 ```
 
-`init` fires `(page view)` and starts a visibility-aware dwell timer that emits `(dwell: N)` on `pagehide`. The site tag (`marketing` / `resources`) goes into column F of the Events sheet so Looker Studio can filter by site.
+`init` fires `(page view)` and starts a visibility-aware dwell timer that emits `(dwell: N)` on `pagehide`. The page-view beacon also re-fires on BFCache restore (browser back/forward) via a `pageshow` listener — without it, return visits via the back button silently dropped because the browser replays the page without re-running `init()`. Each BFCache restore also resets the dwell counters so the restored session emits its own `(dwell: N)` when the visitor leaves again. The site tag (`marketing` / `resources`) goes into column F of the Events sheet so Looker Studio can filter by site.
 
 ### What lands where
 
 | What | Sheet | Mechanism |
 |-|-|-|
-| Page views | `Events` | `tenziTrack.init()` → GET beacon via `Image()`; email column = `(page view)` |
-| CTA clicks | `Events` | `tenziTrack.trackCta(action)` → email column = `(cta: action_name)` |
-| Dwell time (seconds visible) | `Events` | `pagehide` → `fetch(keepalive)` GET; email column = `(dwell: N)` |
+| Page views | `Events` | `tenziTrack.init()` (and `pageshow` for BFCache) → `fetch(keepalive)` GET with `Image()` fallback; email column = `(page view)` |
+| CTA clicks | `Events` | `tenziTrack.trackCta(action)` → `fetch(keepalive)` GET with `Image()` fallback; email column = `(cta: action_name)` |
+| Dwell time (seconds visible) | `Events` | `pagehide` → `fetch(keepalive)` GET with `Image()` fallback; email column = `(dwell: N)` |
 | Contact form submissions | `Contacts` | `tenziTrack.postForm({ source: 'holding_page_contact', ... })` |
 
 The Apps Script branches on `data.source` (`holding_page_contact` → `Contacts` sheet + notify email; everything else → `Events`) and fires a notification email to `roshan@tenzi.ai` for every contact submission. See `../tenzi-resources/apps-script.gs` (sibling checkout) for the source of truth — the deployed script lives in the linked Google Sheet. Edits must be mirrored there manually via Deploy > Manage deployments > New version.
