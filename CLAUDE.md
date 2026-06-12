@@ -45,7 +45,7 @@ The resources design standard explicitly says it does not apply to the marketing
 
 ## Tracking
 
-All client-side tracking is handled by **`track.js`** (checked into this repo, served at `https://tenzi.ai/track.js`). The same file is loaded by `resources.tenzi.ai`, so this is the **single source of truth** for every analytics beacon the two sites emit.
+All client-side tracking is handled by **`track.js`** (checked into this repo, served at `https://tenzi.ai/track.js`). The same file is loaded by `resources.tenzi.ai` and `partner.tenzi.ai`, so this is the **single source of truth** for every analytics beacon the three sites emit.
 
 Loaded at the bottom of `index.html`:
 
@@ -54,7 +54,7 @@ Loaded at the bottom of `index.html`:
 <script>tenziTrack.init({ site: 'marketing' });</script>
 ```
 
-`init` fires `(page view)` and starts a visibility-aware dwell timer that emits `(dwell: N)` on `pagehide`. The page-view beacon also re-fires on BFCache restore (browser back/forward) via a `pageshow` listener — without it, return visits via the back button silently dropped because the browser replays the page without re-running `init()`. Each BFCache restore also resets the dwell counters so the restored session emits its own `(dwell: N)` when the visitor leaves again. The site tag (`marketing` / `resources`) goes into column F of the Events sheet so Looker Studio can filter by site.
+`init` fires `(page view)` and starts a visibility-aware dwell timer that emits `(dwell: N)` on `pagehide`. The page-view beacon also re-fires on BFCache restore (browser back/forward) via a `pageshow` listener — without it, return visits via the back button silently dropped because the browser replays the page without re-running `init()`. Each BFCache restore also resets the dwell counters so the restored session emits its own `(dwell: N)` when the visitor leaves again. The site tag (`marketing` / `resources` / `partner`) goes into column F of the Events sheet so Looker Studio can filter by site. `init` also accepts an optional `user` — a known-visitor id (the partner site passes the authenticated broker id from its auth cookie); when set, it travels as `recipient` on every beacon and lands in column G, the same column newsletter recipient identity uses.
 
 ### What lands where
 
@@ -73,7 +73,7 @@ The same Apps Script web app exposes a private analytics dashboard built on top 
 
 | Call | Purpose |
 |-|-|
-| `tenziTrack.init({ site })` | Fire page view, start dwell timer, cache visitor IP |
+| `tenziTrack.init({ site, user })` | Fire page view, start dwell timer, cache visitor IP; optional `user` = known-visitor id sent as `recipient` (Events column G) on every beacon |
 | `tenziTrack.trackCta(action)` | Fire `(cta: action)` beacon |
 | `tenziTrack.trackBeacon(event)` | Fire arbitrary-named beacon |
 | `tenziTrack.postForm(data)` | POST JSON to endpoint; auto-adds `page`, `timestamp`, `referrer`, `site`, `ip` |
@@ -148,7 +148,7 @@ The page is one HTML file. To add a section:
 ## Things to keep working
 
 - `<script src="https://tenzi.ai/track.js">` + `tenziTrack.init({ site: 'marketing' })` must remain at the bottom of `index.html` (everything depends on it).
-- `track.js` itself must continue to be served at the repo root so `https://tenzi.ai/track.js` resolves. Do not move it into a subfolder — resources.tenzi.ai loads it cross-origin via that exact URL.
+- `track.js` itself must continue to be served at the repo root so `https://tenzi.ai/track.js` resolves. Do not move it into a subfolder — resources.tenzi.ai and partner.tenzi.ai load it cross-origin via that exact URL.
 - The contact form POST must include `source: 'holding_page_contact'` — that's the routing flag for the Apps Script.
 - `mode: 'no-cors'` on the form POST (handled inside `tenziTrack.postForm`) — without it, the cross-origin response would fail and the success view would be skipped.
 - Visitor IP lookup (`api.ipify.org`) is best-effort; tracking still fires if it fails.

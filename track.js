@@ -1,15 +1,17 @@
 /**
  * Tenzi shared analytics tracker.
- * Served at https://tenzi.ai/track.js — loaded by tenzi.ai (marketing) and
- * resources.tenzi.ai (free data). Single source of truth for client-side events.
+ * Served at https://tenzi.ai/track.js — loaded by tenzi.ai (marketing),
+ * resources.tenzi.ai (free data) and partner.tenzi.ai (broker portal).
+ * Single source of truth for client-side events.
  *
  * Usage (any page, bottom of <body>):
  *   <script src="https://tenzi.ai/track.js"></script>
  *   <script>tenziTrack.init({ site: 'marketing' })</script>
- *   (or { site: 'resources' })
+ *   (or { site: 'resources' }, or { site: 'partner', user: '<broker-id>' })
  *
  * Public API (tenziTrack.*):
- *   init({ site })         — fire page view, start dwell timer
+ *   init({ site, user })   — fire page view, start dwell timer; optional user
+ *                            = known-visitor id sent as recipient on every beacon
  *   trackCta(action)       — fire (cta: action) beacon
  *   trackBeacon(event)     — fire beacon with arbitrary event string
  *   postForm(data)         — POST JSON to endpoint with site/page/ip/referrer/timestamp auto-added
@@ -20,7 +22,8 @@
  *   window.trackBeacon
  *
  * Events land in the Apps Script Events sheet (column A=event, B=page, C=timestamp,
- * D=ip, E=referrer, F=site). Dwell time is captured on pagehide as "(dwell: N)"
+ * D=ip, E=referrer, F=site, G=recipient — the init user id when one is set).
+ * Dwell time is captured on pagehide as "(dwell: N)"
  * where N = whole seconds the tab was visible (capped 3600, skipped below 2).
  */
 (function(global) {
@@ -29,6 +32,7 @@
   var DWELL_MIN_SECONDS = 2;
 
   var site = '';
+  var user = '';
   var visitorIp = '';
   var ipRequested = false;
   var ipPending = [];
@@ -64,6 +68,10 @@
       + '&page=' + encodeURIComponent(document.title)
       + '&ref=' + encodeURIComponent(document.referrer);
     if (site) url += '&site=' + encodeURIComponent(site);
+    // Known-visitor id (e.g. partner-site broker) — the Apps Script writes it
+    // to the Events sheet recipient column (G), the slot newsletter identity
+    // already uses, so no endpoint change is needed.
+    if (user) url += '&recipient=' + encodeURIComponent(user);
     if (ip) url += '&ip=' + encodeURIComponent(ip);
     // UA travels via URL param because Apps Script doGet doesn't expose
     // request headers — same reason ip is passed explicitly. Used by the
@@ -159,6 +167,7 @@
 
   function init(opts) {
     site = (opts && opts.site) || '';
+    user = (opts && opts.user) || '';
     ensureIp(function(){});
     trackBeacon('(page view)');
     startDwell();
