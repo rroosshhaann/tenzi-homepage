@@ -11,7 +11,12 @@
  *
  * Public API (tenziTrack.*):
  *   init({ site, user })   — fire page view, start dwell timer; optional user
- *                            = known-visitor id sent as recipient on every beacon
+ *                            = known-visitor id sent as recipient on every beacon.
+ *                            When no user is given, a ?tzr=<recipient> URL param
+ *                            (appended by the newsletter redirect at
+ *                            resources.tenzi.ai/r/) is picked up instead, stripped
+ *                            from the URL, and kept in sessionStorage so the rest
+ *                            of the tab session stays attributed
  *   trackCta(action)       — fire (cta: action) beacon
  *   trackBeacon(event)     — fire beacon with arbitrary event string
  *   postForm(data)         — POST JSON to endpoint with site/page/ip/referrer/timestamp auto-added
@@ -60,6 +65,34 @@
     var pending = ipPending;
     ipPending = [];
     pending.forEach(function(f) { f(ip); });
+  }
+
+  // Newsletter hand-off: the /r/ click redirect appends ?tzr=<recipient> to
+  // tenzi.ai destinations so the visit stays attributable after the redirect.
+  // The id is lifted out of the URL immediately (replaceState, so it never
+  // lingers in the address bar or gets copied into shared links) and kept in
+  // sessionStorage so follow-on pages in the same tab stay attributed.
+  function resolveHandoffUser() {
+    var fromUrl = '';
+    try {
+      var params = new URLSearchParams(window.location.search);
+      fromUrl = params.get('tzr') || '';
+      if (fromUrl) {
+        params.delete('tzr');
+        var qs = params.toString();
+        var clean = window.location.pathname + (qs ? '?' + qs : '') + window.location.hash;
+        window.history.replaceState(null, '', clean);
+      }
+    } catch (err) {}
+    try {
+      if (fromUrl) {
+        sessionStorage.setItem('tenzi_tzr', fromUrl);
+        return fromUrl;
+      }
+      return sessionStorage.getItem('tenzi_tzr') || '';
+    } catch (err) {
+      return fromUrl;
+    }
   }
 
   function buildGetUrl(eventName, ip) {
@@ -167,7 +200,7 @@
 
   function init(opts) {
     site = (opts && opts.site) || '';
-    user = (opts && opts.user) || '';
+    user = (opts && opts.user) || resolveHandoffUser();
     ensureIp(function(){});
     trackBeacon('(page view)');
     startDwell();

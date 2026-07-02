@@ -54,7 +54,7 @@ Loaded at the bottom of `index.html`:
 <script>tenziTrack.init({ site: 'marketing' });</script>
 ```
 
-`init` fires `(page view)` and starts a visibility-aware dwell timer that emits `(dwell: N)` on `pagehide`. The page-view beacon also re-fires on BFCache restore (browser back/forward) via a `pageshow` listener — without it, return visits via the back button silently dropped because the browser replays the page without re-running `init()`. Each BFCache restore also resets the dwell counters so the restored session emits its own `(dwell: N)` when the visitor leaves again. The site tag (`marketing` / `resources` / `partner`) goes into column F of the Events sheet so Looker Studio can filter by site. `init` also accepts an optional `user` — a known-visitor id (the partner site passes the authenticated broker id from its auth cookie); when set, it travels as `recipient` on every beacon and lands in column G, the same column newsletter recipient identity uses.
+`init` fires `(page view)` and starts a visibility-aware dwell timer that emits `(dwell: N)` on `pagehide`. The page-view beacon also re-fires on BFCache restore (browser back/forward) via a `pageshow` listener — without it, return visits via the back button silently dropped because the browser replays the page without re-running `init()`. Each BFCache restore also resets the dwell counters so the restored session emits its own `(dwell: N)` when the visitor leaves again. The site tag (`marketing` / `resources` / `partner`) goes into column F of the Events sheet so Looker Studio can filter by site. `init` also accepts an optional `user` — a known-visitor id (the partner site passes the authenticated broker id from its auth cookie); when set, it travels as `recipient` on every beacon and lands in column G, the same column newsletter recipient identity uses. When no explicit `user` is given, `init` falls back to the newsletter hand-off: the `resources.tenzi.ai/r/` click redirect appends `?tzr=<recipient>` to tenzi.ai destinations, and `track.js` lifts that id out of the URL on load (stripped immediately via `history.replaceState` so it never lingers in the address bar or copied links), stores it in `sessionStorage` (`tenzi_tzr`), and sends it as `recipient` on every beacon for the rest of the tab session — so report page views, dwell, and CTA clicks from newsletter visitors stay attributed to the person.
 
 ### What lands where
 
@@ -73,7 +73,7 @@ The same Apps Script web app exposes a private analytics dashboard built on top 
 
 | Call | Purpose |
 |-|-|
-| `tenziTrack.init({ site, user })` | Fire page view, start dwell timer, cache visitor IP; optional `user` = known-visitor id sent as `recipient` (Events column G) on every beacon |
+| `tenziTrack.init({ site, user })` | Fire page view, start dwell timer, cache visitor IP; optional `user` = known-visitor id sent as `recipient` (Events column G) on every beacon. Falls back to the `?tzr=` newsletter hand-off param / `sessionStorage` when omitted |
 | `tenziTrack.trackCta(action)` | Fire `(cta: action)` beacon |
 | `tenziTrack.trackBeacon(event)` | Fire arbitrary-named beacon |
 | `tenziTrack.postForm(data)` | POST JSON to endpoint; auto-adds `page`, `timestamp`, `referrer`, `site`, `ip` |
