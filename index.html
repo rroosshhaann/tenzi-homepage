@@ -1,10 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-AU">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>More clients. Less admin.</title>
+<title>Tenzi · More clients. Less admin.</title>
 <meta name="description" content="Intelligent workflow automation software for Australian insurance brokers. We take the slow, manual parts of new business, renewals, and claims off your desk — so the same broker, in the same hours, can write more clients and serve them better. Currently in design partnership.">
+<link rel="canonical" href="https://tenzi.ai/">
+<link rel="icon" type="image/svg+xml" href="tenzi-arcs-small.svg">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Tenzi">
+<meta property="og:title" content="Tenzi · More clients. Less admin.">
+<meta property="og:description" content="Intelligent workflow automation software for Australian insurance brokers, currently in design partnership.">
+<meta property="og:url" content="https://tenzi.ai/">
+<meta property="og:image" content="https://tenzi.ai/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Tenzi. More clients. Less admin. For Australian insurance brokers.">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
@@ -115,6 +127,22 @@ a { color: var(--accent); }
   text-wrap: pretty;
 }
 .hero-lede strong { color: var(--text); font-weight: 500; }
+.hero-cta {
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.hero-direct {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.hero-direct:hover { color: var(--accent); }
 
 /* Section label */
 .section-label {
@@ -170,7 +198,8 @@ a { color: var(--accent); }
   text-transform: uppercase;
   color: var(--muted);
 }
-.thesis h2 {
+.thesis h2,
+.thesis-item h2 {
   font-size: 22px;
   line-height: 1.2;
   letter-spacing: -0.02em;
@@ -178,13 +207,43 @@ a { color: var(--accent); }
   color: var(--g900);
   text-wrap: balance;
 }
-.thesis p {
+.thesis p,
+.thesis-item p {
   font-size: 14px;
   line-height: 1.65;
   color: var(--muted);
   text-wrap: pretty;
 }
-.thesis p strong { color: var(--text); font-weight: 500; }
+.thesis p strong,
+.thesis-item p strong { color: var(--text); font-weight: 500; }
+
+/* Why we're building this: open editorial rows, deliberately unboxed so the argument reads differently from the product cards above */
+.thesis-list { display: flex; flex-direction: column; }
+.thesis-item {
+  display: grid;
+  grid-template-columns: 84px 1fr;
+  gap: 28px;
+  padding: 28px 4px;
+  border-bottom: 1px dashed var(--border);
+}
+.thesis-item:first-child { padding-top: 12px; }
+.thesis-item:last-child { border-bottom: none; padding-bottom: 8px; }
+.thesis-item .num {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 30px;
+  color: var(--dim);
+  line-height: 1;
+  padding-top: 3px;
+}
+.thesis-body { display: flex; flex-direction: column; gap: 10px; }
+.thesis-body .head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.thesis-item p { max-width: 700px; }
 
 /* Status block */
 .status-section { margin-bottom: 72px; }
@@ -296,6 +355,35 @@ a { color: var(--accent); }
   text-wrap: pretty;
 }
 .round-body p strong { color: var(--text); font-weight: 500; }
+.partner-quote {
+  border-top: 1px dashed var(--border);
+  padding-top: 16px;
+}
+.partner-quote p {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--text);
+  text-wrap: pretty;
+}
+.partner-quote footer {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 8px;
+}
+
+/* FAQ */
+.faq-section { margin-bottom: 72px; }
+.faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.faq-grid p {
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: var(--muted);
+  text-wrap: pretty;
+}
+.faq-grid p strong { color: var(--text); font-weight: 500; }
 
 /* Resources strip: full-width card */
 .resources-section { margin-bottom: 72px; }
@@ -340,7 +428,8 @@ a { color: var(--accent); }
 .resources-cta {
   flex-shrink: 0;
 }
-.btn-resources {
+.btn-resources,
+.btn-primary {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -357,7 +446,7 @@ a { color: var(--accent); }
   transition: background 0.15s;
   white-space: nowrap;
 }
-.btn-resources:hover { background: var(--accent-hover); }
+.btn-resources:hover, .btn-primary:hover { background: var(--accent-hover); }
 
 .resources-list {
   display: grid;
@@ -583,6 +672,7 @@ a { color: var(--accent); }
 @media (max-width: 980px) {
   .thesis-row { grid-template-columns: 1fr; }
   .status-grid { grid-template-columns: 1fr; }
+  .faq-grid { grid-template-columns: 1fr; }
   .resources-list { grid-template-columns: repeat(2, 1fr); }
   .resources-item:nth-child(2) { border-right: none; padding-right: 0; }
   .resources-item:nth-child(3) { border-left: none; padding-left: 0; border-top: 1px solid var(--border-light); padding-top: 18px; }
@@ -600,10 +690,64 @@ a { color: var(--accent); }
   .resources-item { border-right: none !important; border-left: none !important; padding: 14px 0 !important; border-top: 1px solid var(--border-light) !important; }
   .resources-item:first-child { border-top: none !important; }
   .status-list li { grid-template-columns: 1fr; gap: 4px; }
+  .thesis-item { grid-template-columns: 1fr; gap: 10px; padding: 22px 0; }
+  .thesis-item .num { font-size: 20px; padding-top: 0; }
   .field-row { grid-template-columns: 1fr; }
   .nav-bar { margin-bottom: 40px; }
 }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Tenzi",
+  "legalName": "Tenzi Pty Ltd",
+  "url": "https://tenzi.ai/",
+  "logo": "https://tenzi.ai/tenzi-blue.svg",
+  "email": "roshan@tenzi.ai",
+  "founder": { "@type": "Person", "name": "Roshan Khozouei" },
+  "address": { "@type": "PostalAddress", "addressLocality": "Melbourne", "addressCountry": "AU" },
+  "sameAs": ["https://www.linkedin.com/company/tenzi-scaled-ai/"]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What does Tenzi do?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Tenzi is workflow automation software for Australian general insurance brokers. It takes the manual parts of new business, renewals, and claims off your desk: client details captured once, quote slips and submissions assembled, renewal packs drafted, claims kept moving. You review and place; the platform types, formats, and chases." }
+    },
+    {
+      "@type": "Question",
+      "name": "Who is Tenzi for?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Australian general insurance brokers of every shape: Authorised Representatives under AFSL networks, brokerages holding their own licence, and the licensee groups behind them. If you run new business, renewals, and claims for real clients, you're who we build for." }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the design partner program?",
+      "acceptedAnswer": { "@type": "Answer", "text": "A three-month working seat alongside the founding team. Month one maps your workflows and wires Tenzi into the systems you already run, month two you put real client work through the platform, month three we measure the impact in hours and dollars. Your side is about an hour a week. Cohort 01 is full; Cohort 02 opens September 2026 with six spots." }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I buy Tenzi today?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Not yet. The platform is in active testing with our first design partner cohort. The way in is the design partner program: register interest for Cohort 02 through the contact form on tenzi.ai." }
+    },
+    {
+      "@type": "Question",
+      "name": "Who is behind Tenzi?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Tenzi Pty Ltd, a seed-funded company based in Melbourne, co-founded by Roshan Khozouei, previously General Manager of Data Labs at Australia Post and a Scaling AI Industry think tank leader at CSIRO's National AI Centre. A provisional patent covering form-filling automation has been filed." }
+    },
+    {
+      "@type": "Question",
+      "name": "What is resources.tenzi.ai?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Tenzi's free data arm: ASIC register movement dashboards, AR profile data, and operator runbooks for new business, renewals, and claims. Published free for the industry, no paywall, no sign-up gate." }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -612,7 +756,7 @@ a { color: var(--accent); }
   <!-- Nav -->
   <div class="nav-bar">
     <img src="tenzi-blue.svg" alt="Tenzi" style="height: 32px; width: auto; display: block;">
-    <span class="nav-badge">Seed funded · In stealth</span>
+    <span class="nav-badge">Seed funded · Building with Cohort 01</span>
   </div>
 
   <!-- Hero -->
@@ -622,44 +766,91 @@ a { color: var(--accent); }
     <p class="hero-lede">
       We take the slow, manual parts of new business, renewals, and claims off your desk, so the same broker, in the same hours, can write more and serve clients better.
     </p>
+    <div class="hero-cta">
+      <a class="btn-primary" href="#contact" onclick="goCohort('hero_cohort')">
+        Register interest for Cohort 02
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+      </a>
+      <a class="hero-direct" href="mailto:roshan@tenzi.ai" onclick="trackCta('hero_email')">or email roshan@tenzi.ai</a>
+    </div>
   </section>
 
-  <!-- Vision: 3 numbered theses -->
+  <!-- What this looks like: 3 workflow moments -->
   <section class="vision">
-    <div class="section-label"><span>Why we're building this</span><span class="section-num">01 / 03</span></div>
+    <div class="section-label"><span>What this looks like</span><span class="section-num">01 / 05</span></div>
+    <!-- DRAFT COPY: verify every card below against actual product behaviour before promoting -->
     <div class="thesis-row">
       <article class="thesis fade-up d1">
         <div class="thesis-head">
           <span class="thesis-num">01</span>
-          <span class="thesis-tag">The stake</span>
+          <span class="thesis-tag">New business</span>
         </div>
-        <h2>Insurance has never mattered more.</h2>
-        <p>Climate volatility, rising asset values, thinner household buffers. The cost of being under-insured has moved from an inconvenience to a structural risk for Australian households and small businesses. <strong>Well-placed cover, delivered at volume, matters more than it ever has.</strong></p>
+        <h2>New business without the re-keying.</h2>
+        <p>Client details captured once, quote slips and submissions assembled from them, disclosures checked before anything goes to market. <strong>You review and place. The platform types, formats, and chases.</strong></p>
       </article>
 
       <article class="thesis fade-up d2">
         <div class="thesis-head">
           <span class="thesis-num">02</span>
-          <span class="thesis-tag">The gap</span>
+          <span class="thesis-tag">Renewals</span>
         </div>
-        <h2>Brokers are the channel, and they're out of leverage.</h2>
-        <p>Brokers are the ones sitting across the table from real clients. To grow their book without grinding themselves down, they need the <strong>tools to move faster on every policy</strong>, and deliver the same quality of advice at many times the volume.</p>
+        <h2>Renewal packs ready before you open the file.</h2>
+        <p>Expiring terms pulled together, remarket comparisons drafted, a client-ready summary written for your sign-off. <strong>The renewal becomes a review task, not a rebuild.</strong></p>
       </article>
 
       <article class="thesis fade-up d3">
         <div class="thesis-head">
           <span class="thesis-num">03</span>
-          <span class="thesis-tag">The tool</span>
+          <span class="thesis-tag">Claims</span>
         </div>
-        <h2>AI is the unlock. This market is about to move fast.</h2>
-        <p>Purpose-built AI, wired into the workflow a broker actually runs (new business, renewals, claims), collapses the time per policy and <strong>changes the economics of how much a broker can profitably write</strong>. The transformation is not theoretical. It's arriving now.</p>
+        <h2>Claims that keep moving on their own.</h2>
+        <p>Lodgement compiled from what the client sends, insurer follow-ups tracked and chased, the client kept informed at each step. <strong>You stay the advocate. The follow-up runs itself.</strong></p>
+      </article>
+    </div>
+  </section>
+
+  <!-- Vision: 3 numbered theses -->
+  <section class="vision">
+    <div class="section-label"><span>Why we're building this</span><span class="section-num">02 / 05</span></div>
+    <div class="thesis-list">
+      <article class="thesis-item fade-up d1">
+        <div class="num">01</div>
+        <div class="thesis-body">
+          <div class="head">
+            <h2>Insurance has never mattered more.</h2>
+            <span class="thesis-tag">The stake</span>
+          </div>
+          <p>Climate volatility, rising asset values, thinner household buffers. The cost of being under-insured has moved from an inconvenience to a structural risk for Australian households and small businesses. <strong>Well-placed cover, delivered at volume, matters more than it ever has.</strong></p>
+        </div>
+      </article>
+
+      <article class="thesis-item fade-up d2">
+        <div class="num">02</div>
+        <div class="thesis-body">
+          <div class="head">
+            <h2>Brokers are the channel, and they're out of leverage.</h2>
+            <span class="thesis-tag">The gap</span>
+          </div>
+          <p>Brokers are the ones sitting across the table from real clients. To grow their book without grinding themselves down, they need the <strong>tools to move faster on every policy</strong>, and deliver the same quality of advice at many times the volume.</p>
+        </div>
+      </article>
+
+      <article class="thesis-item fade-up d3">
+        <div class="num">03</div>
+        <div class="thesis-body">
+          <div class="head">
+            <h2>The tools finally exist. This market is about to move fast.</h2>
+            <span class="thesis-tag">The tool</span>
+          </div>
+          <p>Purpose-built AI, wired into the workflow a broker actually runs (new business, renewals, claims), collapses the time per policy and <strong>changes the economics of how much a broker can profitably write</strong>. The transformation is not theoretical. It's arriving now.</p>
+        </div>
       </article>
     </div>
   </section>
 
   <!-- Status -->
   <section class="status-section">
-    <div class="section-label"><span>Where we are</span><span class="section-num">02 / 03</span></div>
+    <div class="section-label"><span>Where we are</span><span class="section-num">03 / 05</span></div>
 
     <div class="status-grid">
       <div class="status-card fade-up d1">
@@ -676,6 +867,10 @@ a { color: var(--accent); }
           <li>
             <span class="k">Platform</span>
             <span class="v"><strong>In active testing with design partners.</strong> <span class="hint">New business, renewals, claims: end-to-end broker workflow.</span></span>
+          </li>
+          <li>
+            <span class="k">Patent</span>
+            <span class="v"><strong>Patent pending.</strong> <span class="hint">Provisional application filed covering form-filling automation.</span></span>
           </li>
           <li>
             <span class="k">Based</span>
@@ -695,9 +890,27 @@ a { color: var(--accent); }
             <span class="label">Next round</span>
             <span class="value">Cohort 02 <span class="pill open">Opening soon</span></span>
           </div>
-          <div class="round-body">
-            <p>We're working hand-in-hand with a small group of brokers shaping the product in real books. <strong>Cohort 01 is fully subscribed.</strong> If you're a broker who wants to be considered for Cohort 02, get in touch below and we'll keep you on the shortlist.</p>
+          <div class="round-state">
+            <span class="label">Opens</span>
+            <span class="value">September 2026</span>
           </div>
+          <div class="round-state">
+            <span class="label">Spots</span>
+            <span class="value">6</span>
+          </div>
+          <div class="round-state">
+            <span class="label">Format</span>
+            <span class="value">3 months · Map · Use · Measure</span>
+          </div>
+          <div class="round-body">
+            <p>We're working hand-in-hand with a small group of brokers shaping the product in real books. <strong>Cohort 01 is fully subscribed.</strong> A design partner seat runs three months: we map your workflows and wire Tenzi into the systems you already run, you put real client work through the platform, and we finish with the impact measured in hours and dollars. Your side is about an hour a week, plus honest feedback. <strong>If it's not delivering value, you walk away.</strong> If that sounds like you, <a href="#contact" onclick="goCohort('cohort_card_contact')">register interest below</a> and we'll come back to you before the round opens.</p>
+          </div>
+          <!-- Cohort 01 quote slot: uncomment and fill in when the first real quote lands. Styles (.partner-quote) already in the stylesheet.
+          <blockquote class="partner-quote">
+            <p>“Quote about what changed in their week, ideally with a number.”</p>
+            <footer>Principal, 4-broker AR practice, VIC</footer>
+          </blockquote>
+          -->
         </div>
       </div>
     </div>
@@ -705,7 +918,7 @@ a { color: var(--accent); }
 
   <!-- Resources dedicated card -->
   <section class="resources-section">
-    <div class="section-label"><span>Free for the industry</span><span class="section-num">03 / 03</span></div>
+    <div class="section-label"><span>Free for the industry</span><span class="section-num">04 / 05</span></div>
 
     <div class="resources-card fade-up">
       <div class="resources-head">
@@ -746,8 +959,39 @@ a { color: var(--accent); }
     </div>
   </section>
 
+  <!-- FAQ -->
+  <section class="faq-section">
+    <div class="section-label"><span>Common questions</span><span class="section-num">05 / 05</span></div>
+    <div class="faq-grid">
+      <div class="status-card fade-up d1">
+        <h3>What does Tenzi do?</h3>
+        <p>Tenzi is workflow automation software for Australian general insurance brokers. It takes the manual parts of new business, renewals, and claims off your desk: client details captured once, quote slips and submissions assembled, renewal packs drafted, claims kept moving. <strong>You review and place; the platform types, formats, and chases.</strong></p>
+      </div>
+      <div class="status-card fade-up d2">
+        <h3>Who is Tenzi for?</h3>
+        <p>Australian general insurance brokers of every shape: Authorised Representatives under AFSL networks, brokerages holding their own licence, and the licensee groups behind them. If you run new business, renewals, and claims for real clients, <strong>you're who we build for</strong>.</p>
+      </div>
+      <div class="status-card fade-up d3">
+        <h3>What is the design partner program?</h3>
+        <p>A three-month working seat alongside the founding team. Month one maps your workflows and wires Tenzi into the systems you already run, month two you put real client work through the platform, month three we measure the impact in hours and dollars. Your side is about an hour a week. <strong>Cohort 01 is full; Cohort 02 opens September 2026 with six spots.</strong></p>
+      </div>
+      <div class="status-card fade-up d4">
+        <h3>Can I buy Tenzi today?</h3>
+        <p>Not yet. The platform is in active testing with our first design partner cohort. The way in is the design partner program: <a href="#contact" onclick="goCohort('faq_cohort')">register interest for Cohort 02</a> through the contact form below.</p>
+      </div>
+      <div class="status-card fade-up d5">
+        <h3>Who is behind Tenzi?</h3>
+        <p>Tenzi Pty Ltd, a seed-funded company based in Melbourne, co-founded by Roshan Khozouei, previously General Manager of Data Labs at Australia Post and a Scaling AI Industry think tank leader at CSIRO's National AI Centre. <strong>A provisional patent covering form-filling automation has been filed.</strong></p>
+      </div>
+      <div class="status-card fade-up d6">
+        <h3>What is resources.tenzi.ai?</h3>
+        <p>Our free data arm: ASIC register movement dashboards, AR profile data, and operator runbooks for new business, renewals, and claims. <strong>Published free for the industry</strong>, no paywall, no sign-up gate.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- Contact -->
-  <section class="contact-section">
+  <section class="contact-section" id="contact">
     <div class="section-label"><span>Get in touch</span><span class="section-num">/ contact</span></div>
 
     <div class="contact-grid">
@@ -756,7 +1000,7 @@ a { color: var(--accent); }
           <h2>Talk to us.</h2>
           <p>Whether you're a <strong>broker looking at Cohort 02</strong>, a licensee exploring where AI sits in your book, a journalist, or a potential collaborator, send us a note and we'll come back to you.</p>
         </div>
-        <p>We're a small team. Every message is read by a human.</p>
+        <p>Tenzi is built by a small team in Melbourne, co-founded by Roshan Khozouei, previously General Manager of Data Labs at Australia Post and a Scaling AI Industry think tank leader at CSIRO's National AI Centre. Every message is read by a human.</p>
         <div class="contact-direct">
           <span class="label">Direct</span>
           <a href="mailto:roshan@tenzi.ai" onclick="trackCta('email_click')">roshan@tenzi.ai</a>
@@ -820,7 +1064,7 @@ a { color: var(--accent); }
           </div>
 
           <button type="submit" class="btn-submit">Send message</button>
-          <p class="no-spam">We reply from <a href="mailto:roshan@tenzi.ai">roshan@tenzi.ai</a> · No list, no marketing</p>
+          <p class="no-spam">We reply from <a href="mailto:roshan@tenzi.ai">roshan@tenzi.ai</a> · No list, no marketing · Details used only to reply</p>
         </div>
         <div class="form-success">
           <div class="tick">✓ Message sent</div>
@@ -832,7 +1076,7 @@ a { color: var(--accent); }
 
   <!-- Footer -->
   <footer class="page-footer">
-    <div class="left">© 2026 Tenzi · Seed funded · Melbourne</div>
+    <div class="left">© 2026 Tenzi Pty Ltd · ABN 41 690 320 846 · Seed funded · Melbourne</div>
     <div class="right">
       <a href="https://resources.tenzi.ai" target="_blank" rel="noopener" onclick="trackCta('footer_resources')">Resources</a>
       <a href="mailto:roshan@tenzi.ai" onclick="trackCta('footer_email')">Email</a>
@@ -845,6 +1089,12 @@ a { color: var(--accent); }
 <script src="https://tenzi.ai/track.js"></script>
 <script>
   tenziTrack.init({ site: 'marketing' });
+
+  function goCohort(action) {
+    trackCta(action);
+    var sel = document.getElementById('c-interest');
+    if (sel && !sel.value) sel.value = 'cohort';
+  }
 
   function submitContact(e) {
     e.preventDefault();

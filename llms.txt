@@ -1,0 +1,17 @@
+# Tenzi
+
+> Tenzi (Tenzi Pty Ltd) builds workflow automation software for Australian general insurance brokers. It takes the slow, manual parts of new business, renewals, and claims off a broker's desk so the same broker, in the same hours, can write more and serve clients better. Seed funded, based in Melbourne, currently building with a design partner cohort. Patent pending (form-filling automation).
+
+Key facts:
+
+- Audience: Australian general insurance (GI) brokers: Authorised Representatives (ARs) under AFSL networks, brokerages holding their own AFSL, and licensee groups
+- Stage: seed funded; platform in active testing with the first design partner cohort
+- Design partner program: three months (map workflows, use on real client work, measure hours and dollars saved), about one hour a week of the broker's time; Cohort 01 full, Cohort 02 opens September 2026 with six spots
+- Co-founder: Roshan Khozouei, previously General Manager of Data Labs at Australia Post and a Scaling AI Industry think tank leader at CSIRO's National AI Centre
+- Entity: Tenzi Pty Ltd, ABN 41 690 320 846, Melbourne, Australia
+- Contact: roshan@tenzi.ai
+
+## Sites
+
+- [tenzi.ai](https://tenzi.ai/): marketing homepage, design partner registration, contact
+- [resources.tenzi.ai](https://resources.tenzi.ai/): free industry data published by Tenzi: ASIC register movement dashboards, AR profile data, and operator runbooks for new business, renewals, and claims (no paywall, no sign-up gate)

@@ -8,11 +8,13 @@ Single self-contained HTML file. No build step, no framework, no JavaScript depe
 
 ```
 index.html
-├── Nav (Tenzi logo · "Seed funded · In stealth" badge)
-├── Hero (outcome pitch — "More clients. Less admin.")
+├── Nav (Tenzi logo · "Seed funded · Building with Cohort 01" badge)
+├── Hero (outcome pitch — "More clients. Less admin." · Cohort 02 CTA)
+├── What this looks like — three workflow cards (new business · renewals · claims)
 ├── Why we're building this — three numbered theses
 ├── Where we are — Company snapshot · Design partner cohorts
 ├── Free for the industry — Resources card pointing at resources.tenzi.ai
+├── Common questions — six-card FAQ (mirrored by FAQPage schema)
 ├── Get in touch — Direct email · Contact form
 └── Footer
 ```

@@ -1,0 +1,10 @@
+# tenzi.ai
+# All crawlers welcome, including AI assistants and their search crawlers
+# (GPTBot, OAI-SearchBot, ChatGPT-User, ClaudeBot, PerplexityBot,
+# Google-Extended, CCBot). Keep this permissive: being findable and quotable
+# by search engines and AI assistants is deliberate policy.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://tenzi.ai/sitemap.xml
