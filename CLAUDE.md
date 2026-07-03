@@ -15,6 +15,7 @@ tenzi-homepage/
   index.html              # whole site — sections, styles, tracking, form handler
   track.js                # shared analytics tracker (see Tracking below; served at https://tenzi.ai/track.js)
   og.png                  # 2400×1260 social share card (og:image, 2× for crisp LinkedIn downscale) — regenerate if the hero changes; bump the ?v= cache-buster on the og:image URL when replacing
+  og-frame.html           # source frame for og.png — see "Regenerating og.png" below
   robots.txt              # deliberately permissive, AI crawlers included; points at sitemap.xml
   sitemap.xml             # single URL
   llms.txt                # site summary for AI assistants
@@ -59,6 +60,27 @@ The resources design standard explicitly says it does not apply to the marketing
 - OG/Twitter tags point at `og.png`. LinkedIn caches previews — re-scrape via LinkedIn Post Inspector after changing the card.
 - JSON-LD blocks in the head: `Organization` (legalName Tenzi Pty Ltd, founder) and `FAQPage` (must mirror the visible FAQ answers).
 - **Cohort facts live in three places** — the cohort status card, the FAQ (visible + schema), and `llms.txt`. When Cohort 02's date/spots/status change, update all three together.
+
+### Regenerating og.png
+
+`og-frame.html` (repo root) is the card source: a fixed 1200×630 layout using the same tokens as the page. Render it at 2× — LinkedIn recompresses aggressively and a 1× card comes out blurry. From the repo root (WSL, using Windows Chrome; any Chromium works, the flags are what matter):
+
+```bash
+python3 -m http.server 8123 &    # serves the frame + logo
+"/mnt/c/Program Files/Google/Chrome/Application/chrome.exe" --headless --disable-gpu \
+  --hide-scrollbars --force-device-scale-factor=2 --window-size=1200,630 \
+  --virtual-time-budget=10000 --screenshot='C:\Users\Public\og.png' \
+  'http://localhost:8123/og-frame.html'
+cp /mnt/c/Users/Public/og.png og.png && kill %1
+```
+
+After deploying a new card: bump the `?v=` cache-buster on the `og:image` meta tag and re-scrape via [LinkedIn Post Inspector](https://www.linkedin.com/post-inspector/).
+
+### Search & AI registration (state as of 2026-07-03)
+
+- **Google Search Console**: domain property `tenzi.ai`, auto-verified via Google Workspace — covers every subdomain, so resources/partner never need separate verification. Sitemaps submitted for `https://tenzi.ai/sitemap.xml` and `https://resources.tenzi.ai/sitemap.xml`.
+- **Bing Webmaster Tools**: imported from GSC; both sitemaps submitted. Bing matters disproportionately — its index feeds ChatGPT search.
+- **robots.txt is deliberately permissive** (AI crawlers explicitly welcome) — policy, not oversight. Don't add blanket Disallows.
 
 ## Tracking
 

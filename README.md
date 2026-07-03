@@ -23,6 +23,8 @@ index.html
 
 GitHub Pages from `main` branch. Custom domain `tenzi.ai` (CNAME file in repo root). HTTPS enforced via a GitHub-managed Let's Encrypt cert. **Push to `main` and it deploys automatically** (1–2 min build).
 
+The repo root also serves the discoverability surface: `robots.txt` (deliberately permissive, AI crawlers included), `sitemap.xml`, `llms.txt` (site summary for AI assistants), and `og.png` (the social share card — source frame in `og-frame.html`). The site is registered in Google Search Console (domain property, covers all subdomains) and Bing Webmaster Tools.
+
 DNS managed at GoDaddy:
 
 - Apex `tenzi.ai` — four A records (`185.199.108–111.153`) plus four AAAA records (IPv6, `2606:50c0:8000–8003::153`)
