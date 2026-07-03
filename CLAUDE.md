@@ -14,7 +14,7 @@ The free-data publishing arm lives separately at `resources.tenzi.ai` (`rroosshh
 tenzi-homepage/
   index.html              # whole site — sections, styles, tracking, form handler
   track.js                # shared analytics tracker (see Tracking below; served at https://tenzi.ai/track.js)
-  og.png                  # 1200×630 social share card (og:image) — regenerate if the hero changes
+  og.png                  # 2400×1260 social share card (og:image, 2× for crisp LinkedIn downscale) — regenerate if the hero changes; bump the ?v= cache-buster on the og:image URL when replacing
   robots.txt              # deliberately permissive, AI crawlers included; points at sitemap.xml
   sitemap.xml             # single URL
   llms.txt                # site summary for AI assistants
