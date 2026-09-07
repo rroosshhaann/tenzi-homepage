@@ -5,13 +5,13 @@
 Key facts:
 
 - Audience: Australian general insurance (GI) brokers: Authorised Representatives (ARs) under AFSL networks, brokerages holding their own AFSL, and licensee groups
-- Stage: seed funded; platform in active testing with the first design partner cohort
-- Design partner program: three months (map workflows, use on real client work, measure hours and dollars saved), about one hour a week of the broker's time; Cohort 01 full, Cohort 02 opens September 2026 with six spots
+- Stage: seed funded; the pre-renewal engine is in use with the first design partner cohort (four broker teams since April 2026; the first pre-renewals built in Tenzi went to real clients in August 2026). New business form filling is next; claims is in design with partners
+- Design partner program: three months (map how the broker does renewals, send real pre-renewals through Tenzi from the broker's own Outlook, measure hours and dollars), about one hour a week of the broker's time. Cohort 02 is now open: six seats, seats start as they fill, $100 a month for the three months; after that a monthly price per broker, no lock-in, agreed in month three against the hours saved (figure not yet set, positioned as a fraction of an admin hire). Brokers under a licensee need their licensee's yes; Tenzi provides a governance summary
 - Co-founder: Roshan Khozouei, previously General Manager of Data Labs at Australia Post and a Scaling AI Industry think tank leader at CSIRO's National AI Centre
 - Entity: Tenzi Pty Ltd, ABN 41 690 320 846, Melbourne, Australia
 - Contact: roshan@tenzi.ai
 
 ## Sites
 
-- [tenzi.ai](https://tenzi.ai/): marketing homepage, design partner registration, contact
+- [tenzi.ai](https://tenzi.ai/): marketing homepage, Cohort 02 application, contact
 - [resources.tenzi.ai](https://resources.tenzi.ai/): free industry data published by Tenzi: ASIC register movement dashboards, AR profile data, and operator runbooks for new business, renewals, and claims (no paywall, no sign-up gate)

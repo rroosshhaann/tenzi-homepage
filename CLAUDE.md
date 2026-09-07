@@ -16,6 +16,7 @@ tenzi-homepage/
   track.js                # shared analytics tracker (see Tracking below; served at https://tenzi.ai/track.js)
   og.png                  # 2400×1260 social share card (og:image, 2× for crisp LinkedIn downscale) — regenerate if the hero changes; bump the ?v= cache-buster on the og:image URL when replacing
   og-frame.html           # source frame for og.png — see "Regenerating og.png" below
+  about-insurance-news-top20-2026.jpg   # Insurance News interview page (754×913) shown in the "Why I'm building this" panel; same file as on resources.tenzi.ai/about.html
   robots.txt              # deliberately permissive, AI crawlers included; points at sitemap.xml
   sitemap.xml             # single URL
   llms.txt                # site summary for AI assistants
@@ -39,17 +40,20 @@ Marketing-specific extensions to that base (this page only):
 
 - **Hero h1** at 56px (vs 28px on resource pages) — this is a landing page, not a data document
 - **Eyebrow with dot** prefix on the hero (`For Australian insurance brokers · GI`)
-- **`.hero-cta`** — primary "Register interest for Cohort 02" button (`.btn-primary`, shares its ruleset with `.btn-resources`) plus a quiet mailto link. Anchors to `#contact` and pre-selects the interest dropdown to `cohort` via `goCohort()` (defined next to `submitContact()`)
-- **`.thesis-row`** — three-card grid, used by "What this looks like" (the product workflow cards)
-- **`.thesis-list` / `.thesis-item`** — open editorial rows (large mono numeral, dashed separators, no panels), used by "Why we're building this" so the argument reads differently from the product cards directly above it
-- **`.status-grid`** — two-column status block (company snapshot + cohort state). The snapshot includes the patent-pending row; the cohort card holds the concrete Cohort 02 offer and a commented-out `.partner-quote` stub awaiting the first real Cohort 01 quote (styles already shipped)
+- **`.hero-cta`** — primary "Try it on your next renewal batch" button (`.btn-primary`, shares its ruleset with `.btn-resources`) anchoring to `#cohort`, plus a quiet mailto link
+- **`#cohort` section** (`.status-grid` + `.thesis-row`) — the Cohort 02 ask: a `.contact-copy` panel (the offer, the counts, a "this suits you if" `.status-list`, the walk-away line, "Put your hand up" button to `#contact`), a `.status-card` "The terms, plainly" list (seats, length, time, cost, where it runs, licensee), then one wide `.status-card.steps` holding a three-column `.resources-list` strip for Map / Use / Measure (a strip on purpose, not a card row, so it doesn't mirror the three-card "What it does" row directly below; Roshan flagged the repetition 2026-09-07)
+- **`.thesis-row`** — three-card grid, also used by "What it does" (renewals first; each card carries a status in `.thesis-tag`: Running with partners / Next / In design with partners; `.thesis-tag.now` is the accent-coloured live one)
+- **Founder note** — a tinted `.contact-copy.note` panel in first person laid out as a grid: `.note-body` (h2 "I came to this as a buyer.", the buyer-first origin paragraph, the "hard part was never the technology" lesson, signature with email + personal LinkedIn) beside `.note-photo`, a `<figure>` holding the full Insurance News interview page (`about-insurance-news-top20-2026.jpg`, 754×913, the same file the resources about page uses) with a mono caption, and under both a full-width `.resources-list` strip of four tagged facts (50+ conversations this year · a decade in AI, in the words Roshan published in that interview · four broker teams in Cohort 01 · the Insurance News interview, linked). Roshan chose the whole page over a cropped headshot because it reads as a publication interview, and the origin deliberately says "curious about the other side of the process", never "bad experience", so it can't read as a review of a broker. The page and the "Read it" link go to `resources.tenzi.ai/about.html`. Stacks on phones with the page under the text
 - **`.resources-card`** — single full-width card with a 4-column item list, mirrors but does not duplicate the resources index
-- **`.faq-grid`** — "Common questions": six `.status-card` Q&As, mirrored by a `FAQPage` JSON-LD block in the head. The schema answer text must stay in sync with the visible answers
+- **`.faq-grid`** — "Common questions": six `.status-card` Q&As, each with an accent `.card-tag` above a 17px g900 question, mirrored by a `FAQPage` JSON-LD block in the head. The schema answer text must stay in sync with the visible answers
+- Section labels carry a short status on the right (`.section-num`), not numerals. No "01 / 05" counters and no decorative mono tags on cards
+- **Green layering rule** (Roshan, 2026-09-07, modelled on the resources card): headings in `--g900`, buttons and every small mono label in `--accent` (hero eyebrow, section status, the first `.thesis-tag` on a card, `.status-list .k`, `.field label`, `.contact-direct .label`), and **one shared backdrop seen only through the cards**: the last rule in the stylesheet gives every panel (`.thesis`, `.status-card`, `.resources-card`, `.contact-copy`, `.contact-form`) the same page-sized gradient (seven glows walking down the page, alternating side and shade across accent / g700 / g500 / g300, tight bright ones and broad soft ones, over a faint 160° wash from g50 at the top to g100 at the foot; positions and sizes in % of the page so they scale with page length, placed roughly at cohort, steps, what-it-does, founder, resources, FAQ, form), and a small script at the bottom of `index.html` sets each panel's `background-size` to the `.wrap` dimensions and `background-position` to the negative of the panel's layout offset, re-run on load, resize, and any `.wrap` size change. Cards in a row therefore show one continuous band, the cream ground and gutters stay plain (Roshan wanted the effect on cards only, 2026-09-07), and without the script each card falls back to the glows at card size. The script uses layout offsets, not `getBoundingClientRect`, so the fade-up transform doesn't skew it. Don't give individual cards their own `background-image`; to change the glow, edit the shared rule. Status tags on cards stay muted unless live (`.thesis-tag.now`). Section-label left text and body copy stay muted
 
 **Copy conventions (apply to visible page text, not these docs):**
 
 - **Outcome-led hero.** H1 is `More clients. Less admin.` (trade-off framing, green accent on "Less admin."). Subhead opens broker-perspective (`We take the slow, manual parts of new business, renewals, and claims off your desk, so the same broker, in the same hours, can write more and serve clients better.`). Avoid tech-led openers like "AI that…", "Software for…", or "Operating platform for…" in this section. The eyebrow (`For Australian insurance brokers · GI`) carries the audience targeting; the H1 carries the hook; the subhead describes what the software does.
 - **No em-dashes in body copy.** The visible page intentionally avoids `—`. Substitute contextually: comma for connectors, colon for list/summary introducers, parentheses for parentheticals, period to break into two sentences.
+- **Written for brokers, not for investors or pitch-deck readers** (decided with Roshan 2026-09-07). Nothing investor-shaped above the footer: no "seed funded" badge, no patent row, no company snapshot, no market-thesis section. One audience above the fold; licensees, journalists, and investors get one quiet line in the contact panel. Camera angle is in the room with the broker: their book, their evenings, their words. Proof is counts only (four broker teams since April, first pre-renewals to real clients in August) until a partner signs off on a named quote. The design-partner offer is phrased as something a broker does ("try it on your next renewal batch", "put your hand up"), with the cohort facts underneath, never as a "program" or "seat". Cost is stated as a frame, not a figure: $100 a month for the three months; after that a monthly price per broker, no lock-in, agreed in month three against the hours saved, anchored as "a fraction of what an admin hire costs" (the offshore admin hire at roughly $1.5K to $2K a month is the comparable brokers already weigh). Roshan, 2026-09-07: the earlier $500 a user a month figure was a full-platform quote covering filing, tracking, open-market remarketing, and new business, and is not a public price. Don't publish a number until he sets one.
 - **`<meta description>`** keeps the `Intelligent workflow automation software for Australian insurance brokers.` opener (different audience: search snippets and link previews benefit from the category descriptor) and must stay under ~160 characters — Bing/Google truncate longer ones and Bing Webmaster flags them.
 
 The resources design standard explicitly says it does not apply to the marketing site. In practice this page follows the same tokens and component conventions; the differences above (visual + copy) are deliberate marketing affordances, not style drift. Note that `tenzi-resources/DESIGN_STANDARD.md` says em-dash is the preferred connector — that rule applies to resources pages, not here.
@@ -59,7 +63,7 @@ The resources design standard explicitly says it does not apply to the marketing
 - `<title>` is `Tenzi · More clients. Less admin.` — the title doubles as the analytics `page` key (`track.js` sends `document.title`), and the pre-redesign page was titled `More clients. Less admin.`, so the dashboard's per-page dwell table compares the two versions by these two rows. Don't casually change the title: it forks the analytics page key.
 - OG/Twitter tags point at `og.png`. LinkedIn caches previews — re-scrape via LinkedIn Post Inspector after changing the card.
 - JSON-LD blocks in the head: `Organization` (legalName Tenzi Pty Ltd, founder) and `FAQPage` (must mirror the visible FAQ answers).
-- **Cohort facts live in three places** — the cohort status card, the FAQ (visible + schema), and `llms.txt`. When Cohort 02's date/spots/status change, update all three together.
+- **Cohort facts live in three places** — the `#cohort` section (offer panel + terms card), the FAQ (visible + schema), and `llms.txt`. Current facts: Cohort 02 now open, six seats, rolling start (seats start as they fill, no dated opening), three months, about an hour a week, $100 a month during; ongoing = a monthly price per broker, no lock-in, agreed in month three against measured hours, framed as "a fraction of what an admin hire costs" (no figure). When any of that changes, update all three together.
 
 ### Regenerating og.png
 
@@ -124,13 +128,16 @@ Legacy globals `window.trackCta` and `window.trackBeacon` are also defined so ex
 
 | `action_name` | Where in the page | Notes |
 |-|-|-|
-| `hero_cohort` | Hero "Register interest for Cohort 02" button | Anchors to `#contact`, pre-selects interest=cohort via `goCohort()` |
+| `hero_cohort` | Hero "Try it on your next renewal batch" button | Anchors to `#cohort` |
 | `hero_email` | Hero "or email roshan@tenzi.ai" link | `mailto:` |
-| `cohort_card_contact` | "register interest below" link in the cohort status card | Anchor + pre-select via `goCohort()` |
+| `cohort_card_contact` | "Put your hand up" button in the `#cohort` offer panel | Anchors to `#contact` |
 | `resources_click` | "Open resources.tenzi.ai" button in the resources card | Outbound link |
-| `faq_cohort` | "register interest for Cohort 02" link in the FAQ | Anchor + pre-select via `goCohort()` |
-| `email_click` | Direct email link in contact section | `mailto:` |
-| `contact_submit:<interest>` | Contact form submit (auto-fired) | `<interest>` is the form's interest dropdown value |
+| `faq_cohort` | "Put your hand up below" link in the FAQ | Anchors to `#contact` |
+| `email_click` | Direct email links in the founder note and the contact panel | `mailto:` (the contact-panel one carries a `Cohort 02` subject) |
+| `founder_linkedin` | Personal LinkedIn link under the founder note | Outbound |
+| `founder_about` | Headshot and "More about Roshan" link in the founder note | Outbound to `resources.tenzi.ai/about.html` |
+| `other_email` | "Licensee, journalist, or investor? Same address." link in the contact panel | `mailto:` |
+| `contact_submit:cohort` | Cohort application form submit (auto-fired) | Interest is fixed to `cohort`; the form is brokers-only |
 | `footer_resources` | Footer link to resources | Outbound |
 | `footer_email` | Footer email link | `mailto:` |
 | `footer_linkedin` | Footer LinkedIn link | Outbound |
@@ -139,13 +146,14 @@ Every CTA button must include `onclick="trackCta('action_name')"`. The contact f
 
 ## Contact form
 
-Form `#contactForm` collects: `name`, `email`, `organisation`, `role`, `interest`, `message`. There is also a hidden **honeypot** input `website` (off-screen `aria-hidden` div) — real users never see it; bots that auto-fill all visible inputs will populate it.
+Form `#contactForm` is a brokers-only Cohort 02 application. Visible fields: `name`, `email`, `organisation` (labelled Brokerage), `licensee` (free text, "own AFSL" allowed), `renewals` (select: under 20 / 20 to 50 / 50 to 150 / more than 150), `sink` (select: renewals / new business / claims / something else), `tools` (optional select, the design-partner ICP filter question: none / ChatGPT or similar now and then / building something myself), `message` (optional note). There is also a hidden **honeypot** input `website` (off-screen `aria-hidden` div) — real users never see it; bots that auto-fill all visible inputs will populate it.
 
 On submit, `submitContact(e)`:
 
-1. Calls `tenziTrack.postForm({ source: 'holding_page_contact', ...fields })`. The shared tracker auto-adds `page`, `timestamp`, `referrer`, `site: 'marketing'`, and cached `ip`, then POSTs to the Apps Script endpoint with `mode: 'no-cors'`.
-2. Fires `tenziTrack.trackCta('contact_submit:' + interest)`.
-3. Adds the `submitted` class to the form, swapping the input view for the success view.
+1. Packs the qualifying answers into the `message` field, one line each (`Licensee: …`, `Renewals a month: …`, `Biggest time sink: …`, `AI tools today: …`, `Note: …`), so the Apps Script and the `Contacts` sheet need no change. `role` is fixed to `broker` and `interest` to `cohort`.
+2. Calls `tenziTrack.postForm({ source: 'holding_page_contact', name, email, organisation, role, interest, message, website })`. The shared tracker auto-adds `page`, `timestamp`, `referrer`, `site: 'marketing'`, and cached `ip`, then POSTs to the Apps Script endpoint with `mode: 'no-cors'`.
+3. Fires `tenziTrack.trackCta('contact_submit:cohort')`.
+4. Adds the `submitted` class to the form, swapping the input view for the success view.
 
 Server-side, the Apps Script:
 
@@ -183,9 +191,9 @@ Do not touch any other DNS records (MX, TXT for SPF/DKIM/DMARC, the `resources` 
 The page is one HTML file. To add a section:
 
 1. Copy an existing section pattern (`.vision`, `.status-section`, `.resources-section`, `.faq-section`) inside `.wrap`.
-2. Use existing component classes (`.section-label`, `.thesis`, `.thesis-item`, `.status-card`, `.card`) — do not invent new ones unless the pattern genuinely doesn't exist.
+2. Use existing component classes (`.section-label`, `.thesis`, `.status-card`, `.status-list`, `.contact-copy`) — do not invent new ones unless the pattern genuinely doesn't exist.
 3. If the section has a CTA, wire it with `onclick="trackCta('action_name')"` and add the `action_name` to the table above.
-4. Keep section labels numbered (`01 / 05`, `02 / 05`, etc.) and update the totals if you add or remove sections.
+4. Section labels carry a short status on the right (`.section-num`), not a numeral. Don't reintroduce counters.
 5. Push to `main` — deploys on its own.
 
 ## Things to keep working
@@ -196,7 +204,7 @@ The page is one HTML file. To add a section:
 - `mode: 'no-cors'` on the form POST (handled inside `tenziTrack.postForm`) — without it, the cross-origin response would fail and the success view would be skipped.
 - Visitor IP lookup (`api.ipify.org`) is best-effort; tracking still fires if it fails.
 - `og.png`, `robots.txt`, `sitemap.xml`, and `llms.txt` are referenced by absolute `https://tenzi.ai/...` URLs (og:image tag, robots' Sitemap line) — keep them at the repo root.
-- The patent row says "Patent pending. Provisional application filed covering form-filling automation." A provisional lapses 12 months after filing — pull or update the row if it isn't converted to a complete application.
+- "Patent pending" appears only in the footer line. The provisional was filed 29 May 2026 (complete specification due around late May 2027). A provisional lapses 12 months after filing — pull or update the footer if it isn't converted.
 
 ## Sister project
 
