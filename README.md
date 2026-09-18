@@ -9,9 +9,9 @@ Single self-contained HTML file. No build step, no framework, no JavaScript depe
 ```
 index.html
 ├── Nav (Tenzi logo · "Built with four broker teams" badge)
-├── Hero (outcome pitch — "More clients. Less admin." · "Try it on your next renewal batch")
+├── Hero (outcome pitch — "More clients. Less admin." · "Try it on your next renewal batch" · two-lane figure, Today against With Tenzi)
 ├── Cohort 02 — the offer, the terms, Map · Use · Measure
-├── What it does — three workflow cards (renewals first, then new business, claims)
+├── What it does — renewals featured full width with an example batch, then new business and claims
 ├── Why I'm building this — founder note
 ├── Free for the industry — Resources card pointing at resources.tenzi.ai
 ├── Common questions — six-card FAQ (mirrored by FAQPage schema)

@@ -104,8 +104,9 @@ a { color: var(--accent); }
   display: inline-block;
 }
 
-/* Hero */
-.hero { margin-bottom: 72px; max-width: 920px; }
+/* Hero: copy on the left, the two-lane figure on the right; stacks under 980px */
+.hero { margin-bottom: 72px; display: grid; grid-template-columns: minmax(0, 1fr) 400px; gap: 48px; align-items: center; }
+.hero-copy { max-width: 640px; }
 .hero h1 {
   font-size: 56px;
   letter-spacing: -0.03em;
@@ -144,6 +145,27 @@ a { color: var(--accent); }
 }
 .hero-direct:hover { color: var(--accent); }
 
+/* Hero figure: two lanes, Today and With Tenzi, the same week, each disc a done mark. It sits straight on the cream with
+   no panel, so it is deliberately not in the shared-backdrop rule. The script at the bottom of the page runs the loop;
+   the .end marks are the no-script fallback (see the noscript rule in the head). */
+.hero-figure { margin: 0; display: flex; flex-direction: column; gap: 18px; }
+.capacity { width: 100%; height: auto; display: block; }
+.capacity .lab { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 9.5px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; fill: var(--accent); }
+.capacity .lab.dim { fill: var(--muted); font-weight: 400; }
+.capacity .slot { fill: none; stroke: var(--border); }
+.capacity .t { opacity: 0; transition: opacity 0.25s ease-out; }
+.capacity .t.on { opacity: 1; }
+.capacity .t circle { fill: var(--accent); fill-opacity: 0.22; }
+.capacity .t path { fill: none; stroke: var(--accent); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.capacity .lane-today .t circle { fill: var(--dim); fill-opacity: 0.28; }
+.capacity .lane-today .t path { stroke: var(--muted); }
+
+/* Small mono furniture shared by the hero figure and the batch: same faces as the card tags and the note figcaption */
+.fig-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.fig-tag { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 9.5px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); }
+.fig-tag.dim { color: var(--dim); font-weight: 400; }
+.fig-cap { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); line-height: 1.5; }
+
 /* Section label */
 .section-label {
   font-family: 'IBM Plex Mono', ui-monospace, monospace;
@@ -159,11 +181,12 @@ a { color: var(--accent); }
 }
 .section-label .section-num { color: var(--accent); }
 
-/* Three-card rows */
+/* What it does: the renewals card runs full width (.featured) with the example batch beside its copy; new business and
+   claims share the two-column row below */
 .vision { margin-bottom: 72px; }
 .thesis-row {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr 1fr;
   gap: 10px;
 }
 .thesis {
@@ -209,6 +232,27 @@ a { color: var(--accent); }
   text-wrap: pretty;
 }
 .thesis p strong { color: var(--text); font-weight: 500; }
+.thesis.featured { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1fr) 400px; gap: 40px; align-items: start; }
+.thesis-body { display: flex; flex-direction: column; gap: 16px; }
+.thesis.featured h2 { font-size: 26px; max-width: 520px; }
+.thesis.featured p { max-width: 520px; }
+/* The example batch: each row a client written as type and suburb, never a name; statuses Sent, Your sign-off, Drafting */
+.batch { margin: 0; display: flex; flex-direction: column; gap: 12px; }
+.batch-list { list-style: none; margin: 0; padding: 2px 14px 0; background: var(--bg); border: 1px solid var(--border); border-radius: 4px; position: relative; overflow: hidden; }
+.batch-list li { display: grid; grid-template-columns: 14px 1fr auto; gap: 10px; align-items: center; padding: 8px 0; border-bottom: 1px dashed var(--border); font-size: 13px; color: var(--text); line-height: 1.4; }
+.batch-list li:last-child { border-bottom: none; }
+.batch-list .who em { font-style: normal; color: var(--muted); font-size: 12px; margin-left: 6px; }
+.batch-list .state { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 9.5px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); white-space: nowrap; }
+.batch-list li.signoff .state { color: var(--muted); }
+.batch-list li.drafting { color: var(--muted); }
+.batch-list li.drafting .state { color: var(--dim); font-weight: 400; }
+.batch-list .glyph { width: 14px; height: 14px; border-radius: 50%; border: 1.5px solid var(--accent); display: inline-flex; align-items: center; justify-content: center; color: #fff; }
+.batch-list li.sent .glyph { background: var(--accent); }
+.batch-list li.sent .glyph svg { width: 8px; height: 8px; }
+.batch-list li.signoff .glyph::after { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+.batch-list li.drafting .glyph { border-color: var(--border-bright); }
+/* the batch keeps going past the bottom of the list */
+.batch-list::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 64px; background: linear-gradient(to bottom, rgba(250,248,244,0), var(--bg) 85%); pointer-events: none; }
 
 /* Two-column panel + card blocks (cohort terms, contact) */
 .status-section { margin-bottom: 72px; }
@@ -607,6 +651,7 @@ a { color: var(--accent); }
   .fade-up.d4 { animation-delay: 0.24s; }
   .fade-up.d5 { animation-delay: 0.30s; }
   .fade-up.d6 { animation-delay: 0.36s; }
+  .batch-list li { animation: fadeUp 0.45s cubic-bezier(.2,.7,.2,1) both; animation-delay: calc(0.4s + var(--i) * 70ms); }
 }
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(10px); }
@@ -615,7 +660,10 @@ a { color: var(--accent); }
 
 /* Responsive */
 @media (max-width: 980px) {
+  .hero { grid-template-columns: 1fr; gap: 36px; }
+  .hero-figure { max-width: 400px; }
   .thesis-row { grid-template-columns: 1fr; }
+  .thesis.featured { grid-template-columns: 1fr; }
   .status-grid { grid-template-columns: 1fr; }
   .faq-grid { grid-template-columns: 1fr; }
   .resources-list { grid-template-columns: repeat(2, 1fr); }
@@ -644,6 +692,7 @@ a { color: var(--accent); }
   .nav-bar { margin-bottom: 40px; }
 }
 </style>
+<noscript><style>.capacity .t.end { opacity: 1; }</style></noscript>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -709,6 +758,7 @@ a { color: var(--accent); }
 
   <!-- Hero -->
   <section class="hero fade-up">
+    <div class="hero-copy">
     <div class="eyebrow">For Australian insurance brokers · GI</div>
     <h1>More clients. <em class="mark">Less admin.</em></h1>
     <p class="hero-lede">
@@ -721,6 +771,98 @@ a { color: var(--accent); }
       </a>
       <a class="hero-direct" href="mailto:roshan@tenzi.ai" onclick="trackCta('hero_email')">or email roshan@tenzi.ai</a>
     </div>
+    </div>
+    <figure class="hero-figure" aria-label="The same week, side by side: work done today against work done with Tenzi. Each disc is a done mark. The Tenzi lane fills its five rows while the other reaches three, then it runs again.">
+      <svg class="capacity" viewBox="0 0 352 188" width="352" height="188" aria-hidden="true" focusable="false">
+        <text class="lab dim" x="0" y="9">Today</text>
+        <text class="lab" x="184" y="9">With Tenzi</text>
+        <g class="lane lane-today" transform="translate(0 0)">
+        <circle class="slot" cx="12" cy="32" r="11.5"/>
+        <circle class="slot" cx="60" cy="32" r="11.5"/>
+        <circle class="slot" cx="108" cy="32" r="11.5"/>
+        <circle class="slot" cx="156" cy="32" r="11.5"/>
+        <circle class="slot" cx="12" cy="68" r="11.5"/>
+        <circle class="slot" cx="60" cy="68" r="11.5"/>
+        <circle class="slot" cx="108" cy="68" r="11.5"/>
+        <circle class="slot" cx="156" cy="68" r="11.5"/>
+        <circle class="slot" cx="12" cy="104" r="11.5"/>
+        <circle class="slot" cx="60" cy="104" r="11.5"/>
+        <circle class="slot" cx="108" cy="104" r="11.5"/>
+        <circle class="slot" cx="156" cy="104" r="11.5"/>
+        <circle class="slot" cx="12" cy="140" r="11.5"/>
+        <circle class="slot" cx="60" cy="140" r="11.5"/>
+        <circle class="slot" cx="108" cy="140" r="11.5"/>
+        <circle class="slot" cx="156" cy="140" r="11.5"/>
+        <circle class="slot" cx="12" cy="176" r="11.5"/>
+        <circle class="slot" cx="60" cy="176" r="11.5"/>
+        <circle class="slot" cx="108" cy="176" r="11.5"/>
+        <circle class="slot" cx="156" cy="176" r="11.5"/>
+        <g class="t end"><circle cx="12" cy="32" r="12"/><path d="M7 32 L10.5 35.5 L17 28.5"/></g>
+        <g class="t end"><circle cx="60" cy="32" r="12"/><path d="M55 32 L58.5 35.5 L65 28.5"/></g>
+        <g class="t end"><circle cx="108" cy="32" r="12"/><path d="M103 32 L106.5 35.5 L113 28.5"/></g>
+        <g class="t end"><circle cx="156" cy="32" r="12"/><path d="M151 32 L154.5 35.5 L161 28.5"/></g>
+        <g class="t end"><circle cx="12" cy="68" r="12"/><path d="M7 68 L10.5 71.5 L17 64.5"/></g>
+        <g class="t end"><circle cx="60" cy="68" r="12"/><path d="M55 68 L58.5 71.5 L65 64.5"/></g>
+        <g class="t end"><circle cx="108" cy="68" r="12"/><path d="M103 68 L106.5 71.5 L113 64.5"/></g>
+        <g class="t end"><circle cx="156" cy="68" r="12"/><path d="M151 68 L154.5 71.5 L161 64.5"/></g>
+        <g class="t end"><circle cx="12" cy="104" r="12"/><path d="M7 104 L10.5 107.5 L17 100.5"/></g>
+        <g class="t end"><circle cx="60" cy="104" r="12"/><path d="M55 104 L58.5 107.5 L65 100.5"/></g>
+        <g class="t end"><circle cx="108" cy="104" r="12"/><path d="M103 104 L106.5 107.5 L113 100.5"/></g>
+        <g class="t end"><circle cx="156" cy="104" r="12"/><path d="M151 104 L154.5 107.5 L161 100.5"/></g>
+        <g class="t"><circle cx="12" cy="140" r="12"/><path d="M7 140 L10.5 143.5 L17 136.5"/></g>
+        <g class="t"><circle cx="60" cy="140" r="12"/><path d="M55 140 L58.5 143.5 L65 136.5"/></g>
+        <g class="t"><circle cx="108" cy="140" r="12"/><path d="M103 140 L106.5 143.5 L113 136.5"/></g>
+        <g class="t"><circle cx="156" cy="140" r="12"/><path d="M151 140 L154.5 143.5 L161 136.5"/></g>
+        <g class="t"><circle cx="12" cy="176" r="12"/><path d="M7 176 L10.5 179.5 L17 172.5"/></g>
+        <g class="t"><circle cx="60" cy="176" r="12"/><path d="M55 176 L58.5 179.5 L65 172.5"/></g>
+        <g class="t"><circle cx="108" cy="176" r="12"/><path d="M103 176 L106.5 179.5 L113 172.5"/></g>
+        <g class="t"><circle cx="156" cy="176" r="12"/><path d="M151 176 L154.5 179.5 L161 172.5"/></g>
+        </g>
+        <g class="lane lane-tenzi" transform="translate(184 0)">
+        <circle class="slot" cx="12" cy="32" r="11.5"/>
+        <circle class="slot" cx="60" cy="32" r="11.5"/>
+        <circle class="slot" cx="108" cy="32" r="11.5"/>
+        <circle class="slot" cx="156" cy="32" r="11.5"/>
+        <circle class="slot" cx="12" cy="68" r="11.5"/>
+        <circle class="slot" cx="60" cy="68" r="11.5"/>
+        <circle class="slot" cx="108" cy="68" r="11.5"/>
+        <circle class="slot" cx="156" cy="68" r="11.5"/>
+        <circle class="slot" cx="12" cy="104" r="11.5"/>
+        <circle class="slot" cx="60" cy="104" r="11.5"/>
+        <circle class="slot" cx="108" cy="104" r="11.5"/>
+        <circle class="slot" cx="156" cy="104" r="11.5"/>
+        <circle class="slot" cx="12" cy="140" r="11.5"/>
+        <circle class="slot" cx="60" cy="140" r="11.5"/>
+        <circle class="slot" cx="108" cy="140" r="11.5"/>
+        <circle class="slot" cx="156" cy="140" r="11.5"/>
+        <circle class="slot" cx="12" cy="176" r="11.5"/>
+        <circle class="slot" cx="60" cy="176" r="11.5"/>
+        <circle class="slot" cx="108" cy="176" r="11.5"/>
+        <circle class="slot" cx="156" cy="176" r="11.5"/>
+        <g class="t end"><circle cx="12" cy="32" r="12"/><path d="M7 32 L10.5 35.5 L17 28.5"/></g>
+        <g class="t end"><circle cx="60" cy="32" r="12"/><path d="M55 32 L58.5 35.5 L65 28.5"/></g>
+        <g class="t end"><circle cx="108" cy="32" r="12"/><path d="M103 32 L106.5 35.5 L113 28.5"/></g>
+        <g class="t end"><circle cx="156" cy="32" r="12"/><path d="M151 32 L154.5 35.5 L161 28.5"/></g>
+        <g class="t end"><circle cx="12" cy="68" r="12"/><path d="M7 68 L10.5 71.5 L17 64.5"/></g>
+        <g class="t end"><circle cx="60" cy="68" r="12"/><path d="M55 68 L58.5 71.5 L65 64.5"/></g>
+        <g class="t end"><circle cx="108" cy="68" r="12"/><path d="M103 68 L106.5 71.5 L113 64.5"/></g>
+        <g class="t end"><circle cx="156" cy="68" r="12"/><path d="M151 68 L154.5 71.5 L161 64.5"/></g>
+        <g class="t end"><circle cx="12" cy="104" r="12"/><path d="M7 104 L10.5 107.5 L17 100.5"/></g>
+        <g class="t end"><circle cx="60" cy="104" r="12"/><path d="M55 104 L58.5 107.5 L65 100.5"/></g>
+        <g class="t end"><circle cx="108" cy="104" r="12"/><path d="M103 104 L106.5 107.5 L113 100.5"/></g>
+        <g class="t end"><circle cx="156" cy="104" r="12"/><path d="M151 104 L154.5 107.5 L161 100.5"/></g>
+        <g class="t end"><circle cx="12" cy="140" r="12"/><path d="M7 140 L10.5 143.5 L17 136.5"/></g>
+        <g class="t end"><circle cx="60" cy="140" r="12"/><path d="M55 140 L58.5 143.5 L65 136.5"/></g>
+        <g class="t end"><circle cx="108" cy="140" r="12"/><path d="M103 140 L106.5 143.5 L113 136.5"/></g>
+        <g class="t end"><circle cx="156" cy="140" r="12"/><path d="M151 140 L154.5 143.5 L161 136.5"/></g>
+        <g class="t end"><circle cx="12" cy="176" r="12"/><path d="M7 176 L10.5 179.5 L17 172.5"/></g>
+        <g class="t end"><circle cx="60" cy="176" r="12"/><path d="M55 176 L58.5 179.5 L65 172.5"/></g>
+        <g class="t end"><circle cx="108" cy="176" r="12"/><path d="M103 176 L106.5 179.5 L113 172.5"/></g>
+        <g class="t end"><circle cx="156" cy="176" r="12"/><path d="M151 176 L154.5 179.5 L161 172.5"/></g>
+        </g>
+      </svg>
+      <figcaption class="fig-cap">More time for clients, more time to grow.</figcaption>
+    </figure>
   </section>
 
   <!-- Cohort 02: the ask, the terms, the three months -->
@@ -802,13 +944,29 @@ a { color: var(--accent); }
   <section class="vision">
     <div class="section-label"><span>What it does</span><span class="section-num">Renewals first</span></div>
     <div class="thesis-row">
-      <article class="thesis fade-up d1">
+      <article class="thesis featured fade-up d1">
+        <div class="thesis-body">
         <div class="thesis-head">
           <span class="thesis-tag">Renewals</span>
           <span class="thesis-tag now">Running with partners</span>
         </div>
         <h2>Renewal packs ready before you open the file.</h2>
         <p>The expiring policy read, the pre-renewal email drafted in your words, a client-ready summary written for your sign-off. Sent from your own Outlook when you say so. <strong>The renewal becomes a review task, not a rebuild.</strong></p>
+        </div>
+        <figure class="batch" aria-label="An example month's batch of pre-renewals: each row is a client, most already sent from the broker's own Outlook, a few waiting on the broker's sign-off, the rest drafting.">
+          <div class="fig-head"><span class="fig-tag">Example batch · this month</span><span class="fig-tag dim">From your Outlook</span></div>
+          <ul class="batch-list">
+            <li class="sent" style="--i:0"><span class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg></span><span class="who">Joinery, Bayside <em>Business pack</em></span><span class="state">Sent</span></li>
+            <li class="sent" style="--i:1"><span class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg></span><span class="who">Transport, Dandenong <em>Fleet and liability</em></span><span class="state">Sent</span></li>
+            <li class="sent" style="--i:2"><span class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg></span><span class="who">Café group, Fitzroy <em>Business pack</em></span><span class="state">Sent</span></li>
+            <li class="sent" style="--i:3"><span class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg></span><span class="who">Plumber, Northcote <em>Tools and liability</em></span><span class="state">Sent</span></li>
+            <li class="signoff" style="--i:4"><span class="glyph"></span><span class="who">Retailer, Geelong <em>ISR</em></span><span class="state">Your sign-off</span></li>
+            <li class="signoff" style="--i:5"><span class="glyph"></span><span class="who">Accountants, Camberwell <em>PI</em></span><span class="state">Your sign-off</span></li>
+            <li class="drafting" style="--i:6"><span class="glyph"></span><span class="who">Builder, Frankston <em>Contract works</em></span><span class="state">Drafting</span></li>
+            <li class="drafting" style="--i:7"><span class="glyph"></span><span class="who">Gym, Richmond <em>Business pack</em></span><span class="state">Drafting</span></li>
+          </ul>
+          <figcaption class="fig-cap">Drafted by Tenzi. Checked by you. Sent from your own Outlook.</figcaption>
+        </figure>
       </article>
 
       <article class="thesis fade-up d2">
@@ -1095,6 +1253,40 @@ a { color: var(--accent); }
     window.addEventListener('load', place);
     window.addEventListener('resize', place);
     if (window.ResizeObserver) new ResizeObserver(place).observe(wrap);
+  })();
+
+  // Hero figure: two lanes on one clock. Each adds a done mark at its own pace (Today one every 400 ms, With Tenzi one
+  // every 240 ms), so when the Tenzi lane fills its twenty the other has twelve: three rows to five. Hold, clear, run
+  // again. Runs only while the figure is on screen; reduced motion shows the end state. The pace is illustrative, not a
+  // measured figure (see CLAUDE.md).
+  (function () {
+    var svg = document.querySelector('.capacity');
+    if (!svg) return;
+    var lanes = [
+      { marks: svg.querySelectorAll('.lane-today .t'), every: 400 },
+      { marks: svg.querySelectorAll('.lane-tenzi .t'), every: 240 }
+    ];
+    var total = lanes[1].marks.length;
+    var fill = total * lanes[1].every, hold = 4500, reset = 450, cycle = fill + hold + reset;
+    function paint(t) {
+      var clearing = t >= fill + hold, elapsed = Math.min(t, fill);
+      lanes.forEach(function (lane) {
+        var n = clearing ? 0 : Math.min(total, Math.floor(elapsed / lane.every));
+        lane.marks.forEach(function (el, i) { el.classList.toggle('on', i < n); });
+      });
+    }
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { paint(fill); return; }
+    var running = false, start = 0;
+    function frame(now) {
+      if (!running) return;
+      paint((now - start) % cycle);
+      requestAnimationFrame(frame);
+    }
+    function run() { if (running) return; running = true; start = performance.now(); requestAnimationFrame(frame); }
+    if (!('IntersectionObserver' in window)) { run(); return; }
+    new IntersectionObserver(function (entries) {
+      if (entries[0].isIntersecting) run(); else running = false;
+    }).observe(svg);
   })();
 
   function submitContact(e) {
