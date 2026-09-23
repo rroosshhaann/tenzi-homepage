@@ -14,7 +14,7 @@ index.html
 ├── What it does — renewals featured full width with an example batch, then new business and claims
 ├── Why I'm building this — founder note
 ├── Free for the industry — Resources card pointing at resources.tenzi.ai
-├── Common questions — six-card FAQ (mirrored by FAQPage schema)
+├── Common questions — six-question FAQ list (mirrored by FAQPage schema)
 ├── Put your hand up — Direct email · Cohort 02 application form
 └── Footer (company line: ABN · Melbourne · seed funded · patent pending)
 ```

@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="only light">
 <title>Tenzi · More clients. Less admin.</title>
 <meta name="description" content="Intelligent workflow automation software for Australian insurance brokers. We take the slow, manual parts of new business, renewals, and claims off your desk.">
 <link rel="canonical" href="https://tenzi.ai/">
@@ -12,14 +13,14 @@
 <meta property="og:title" content="Tenzi · More clients. Less admin.">
 <meta property="og:description" content="Intelligent workflow automation software for Australian insurance brokers, currently in design partnership.">
 <meta property="og:url" content="https://tenzi.ai/">
-<meta property="og:image" content="https://tenzi.ai/og.png?v=2">
+<meta property="og:image" content="https://tenzi.ai/og.png?v=3">
 <meta property="og:image:width" content="2400">
 <meta property="og:image:height" content="1260">
 <meta property="og:image:alt" content="Tenzi. More clients. Less admin. For Australian insurance brokers.">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter+Tight:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
   /* Terminal Grid: LIGHT theme (shared site tokens) */
@@ -55,7 +56,7 @@ body {
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
 }
-a { color: var(--accent); }
+a { color: var(--g700); }
 
 .wrap { max-width: 1100px; margin: 0 auto; padding: 28px 28px 8px; }
 
@@ -68,40 +69,23 @@ a { color: var(--accent); }
 }
 .nav-badge {
   display: inline-flex; align-items: center; gap: 8px;
-  padding: 6px 10px;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  background: var(--panel);
   font-family: 'IBM Plex Mono', ui-monospace, monospace;
-  font-size: 10px; font-weight: 500;
-  letter-spacing: 0.14em;
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--muted);
-}
-.nav-badge::before {
-  content: '';
-  width: 6px; height: 6px; border-radius: 50%;
-  background: var(--accent);
-  display: inline-block;
-  box-shadow: 0 0 0 3px rgba(44,164,113,0.15);
 }
 
 /* Eyebrow */
 .eyebrow {
   font-family: 'IBM Plex Mono', ui-monospace, monospace;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 500;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--g700);
   display: inline-flex; align-items: center; gap: 8px;
   margin-bottom: 20px;
-}
-.eyebrow::before {
-  content: '';
-  width: 6px; height: 6px; border-radius: 50%;
-  background: var(--accent);
-  display: inline-block;
 }
 
 /* Hero: copy on the left, the two-lane figure on the right; stacks under 980px */
@@ -117,7 +101,7 @@ a { color: var(--accent); }
   text-wrap: balance;
 }
 .hero h1 .mark {
-  color: var(--accent);
+  color: var(--g700);
   font-style: normal;
 }
 .hero-lede {
@@ -136,42 +120,40 @@ a { color: var(--accent); }
   flex-wrap: wrap;
 }
 .hero-direct {
-  font-family: 'IBM Plex Mono', ui-monospace, monospace;
-  font-size: 11px;
-  letter-spacing: 0.06em;
+  font: 14px 'Inter Tight', Inter, system-ui, sans-serif;
   color: var(--muted);
   text-decoration: none;
   transition: color 0.15s;
 }
-.hero-direct:hover { color: var(--accent); }
+.hero-direct:hover { color: var(--g700); }
 
 /* Hero figure: two lanes, Today and With Tenzi, the same week, each disc a done mark. It sits straight on the cream with
-   no panel, so it is deliberately not in the shared-backdrop rule. The script at the bottom of the page runs the loop;
+   no panel, so it is deliberately not in the shared-backdrop rule. The script at the bottom of the page plays the fill;
    the .end marks are the no-script fallback (see the noscript rule in the head). */
 .hero-figure { margin: 0; display: flex; flex-direction: column; gap: 18px; }
 .capacity { width: 100%; height: auto; display: block; }
-.capacity .lab { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 9.5px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; fill: var(--accent); }
+.capacity .lab { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 9.5px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; fill: var(--g700); }
 .capacity .lab.dim { fill: var(--muted); font-weight: 400; }
 .capacity .slot { fill: none; stroke: var(--border); }
 .capacity .t { opacity: 0; transition: opacity 0.25s ease-out; }
 .capacity .t.on { opacity: 1; }
-.capacity .t circle { fill: var(--accent); fill-opacity: 0.22; }
-.capacity .t path { fill: none; stroke: var(--accent); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.capacity .t circle { fill: var(--g500); fill-opacity: 0.22; }
+.capacity .t path { fill: none; stroke: var(--g700); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
 .capacity .lane-today .t circle { fill: var(--dim); fill-opacity: 0.28; }
 .capacity .lane-today .t path { stroke: var(--muted); }
 
-/* Small mono furniture shared by the hero figure and the batch: same faces as the card tags and the note figcaption */
+/* Small furniture shared by the hero figure and the batch: a mono tag like the other labels, and a caption that reads as a
+   sentence, in the body face like the note figcaption */
 .fig-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
-.fig-tag { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 9.5px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); }
-.fig-tag.dim { color: var(--dim); font-weight: 400; }
-.fig-cap { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); line-height: 1.5; }
+.fig-tag { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--g700); }
+.fig-cap { font-family: 'Inter Tight', Inter, system-ui, sans-serif; font-size: 13px; color: var(--muted); line-height: 1.5; }
 
 /* Section label */
 .section-label {
   font-family: 'IBM Plex Mono', ui-monospace, monospace;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 500;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--muted);
   margin: 0 0 24px;
@@ -179,7 +161,9 @@ a { color: var(--accent); }
   border-bottom: 1px solid var(--border);
   display: flex; align-items: baseline; justify-content: space-between;
 }
-.section-label .section-num { color: var(--accent); }
+.section-label .section-num { color: var(--g700); }
+/* The FAQ label is a real heading, so the questions don't sit under the resources h2 in the outline */
+.section-label h2 { font: inherit; }
 
 /* What it does: the renewals card runs full width (.featured) with the example batch beside its copy; new business and
    claims share the two-column row below */
@@ -193,13 +177,11 @@ a { color: var(--accent); }
   background: var(--panel);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 28px 26px 30px;
-  transition: border-color 0.15s, background 0.15s;
+  padding: 28px 30px;
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
-.thesis:hover { border-color: var(--border-bright); }
 .thesis-head {
   display: flex;
   align-items: baseline;
@@ -208,15 +190,14 @@ a { color: var(--accent); }
 }
 .thesis-tag {
   font-family: 'IBM Plex Mono', ui-monospace, monospace;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 500;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--muted);
 }
-/* Category tag (first) takes the accent, same face as the resources-card tags; the status tag stays muted unless live */
-.thesis-head .thesis-tag:first-child { color: var(--accent); font-size: 9.5px; letter-spacing: 0.16em; }
-.thesis-tag.now { color: var(--accent); }
+/* The status tag stays muted unless live */
+.thesis-tag.now { color: var(--g700); }
 .thesis h2 {
   font-size: 22px;
   line-height: 1.2;
@@ -242,14 +223,14 @@ a { color: var(--accent); }
 .batch-list li { display: grid; grid-template-columns: 14px 1fr auto; gap: 10px; align-items: center; padding: 8px 0; border-bottom: 1px dashed var(--border); font-size: 13px; color: var(--text); line-height: 1.4; }
 .batch-list li:last-child { border-bottom: none; }
 .batch-list .who em { font-style: normal; color: var(--muted); font-size: 12px; margin-left: 6px; }
-.batch-list .state { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 9.5px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); white-space: nowrap; }
+.batch-list .state { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--g700); white-space: nowrap; }
 .batch-list li.signoff .state { color: var(--muted); }
 .batch-list li.drafting { color: var(--muted); }
-.batch-list li.drafting .state { color: var(--dim); font-weight: 400; }
-.batch-list .glyph { width: 14px; height: 14px; border-radius: 50%; border: 1.5px solid var(--accent); display: inline-flex; align-items: center; justify-content: center; color: #fff; }
-.batch-list li.sent .glyph { background: var(--accent); }
+.batch-list li.drafting .state { color: var(--muted); font-weight: 400; }
+.batch-list .glyph { width: 14px; height: 14px; border-radius: 50%; border: 1.5px solid var(--g700); display: inline-flex; align-items: center; justify-content: center; color: #fff; }
+.batch-list li.sent .glyph { background: var(--g700); }
 .batch-list li.sent .glyph svg { width: 8px; height: 8px; }
-.batch-list li.signoff .glyph::after { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+.batch-list li.signoff .glyph::after { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--g700); }
 .batch-list li.drafting .glyph { border-color: var(--border-bright); }
 /* the batch keeps going past the bottom of the list */
 .batch-list::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 64px; background: linear-gradient(to bottom, rgba(250,248,244,0), var(--bg) 85%); pointer-events: none; }
@@ -271,10 +252,8 @@ a { color: var(--accent); }
   background: var(--panel);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 26px 28px;
-  transition: border-color 0.15s;
+  padding: 28px 30px;
 }
-.status-card:hover { border-color: var(--border-bright); }
 .status-card h3 {
   font-size: 15px;
   font-weight: 500;
@@ -294,30 +273,23 @@ a { color: var(--accent); }
 .status-list li:last-child { border-bottom: none; }
 .status-list .k {
   font-family: 'IBM Plex Mono', ui-monospace, monospace;
-  font-size: 10px;
-  letter-spacing: 0.16em;
+  font-size: 11px;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--g700);
   padding-top: 2px;
 }
 .status-list .v { color: var(--text); }
 .status-list .v strong { font-weight: 500; }
 .status-list .v .hint { display: block; color: var(--muted); font-size: 12.5px; margin-top: 3px; }
 
-/* FAQ */
+/* FAQ: a ruled list rather than panels, so the boxed cards stay for the ask, the product, the founder and the form */
 .faq-section { margin-bottom: 72px; }
-.faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 40px; }
+.faq-grid .status-card { background: none; border: 0; border-top: 1px solid var(--border); border-radius: 0; padding: 22px 0 28px; }
+/* The section label's rule is the list's first rule, so the first row has none of its own */
+.faq-grid .status-card:nth-child(-n+2) { border-top: 0; padding-top: 0; }
 .faq-grid .status-card h3 { font-size: 17px; letter-spacing: -0.01em; margin-bottom: 12px; }
-.card-tag {
-  display: block;
-  font-family: 'IBM Plex Mono', ui-monospace, monospace;
-  font-size: 9.5px;
-  font-weight: 500;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 12px;
-}
 .faq-grid p {
   font-size: 13.5px;
   line-height: 1.65;
@@ -332,12 +304,10 @@ a { color: var(--accent); }
   background: var(--panel);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 34px 36px;
+  padding: 28px 30px;
   position: relative;
   overflow: hidden;
-  transition: border-color 0.15s;
 }
-.resources-card:hover { border-color: var(--border-bright); }
 .resources-head {
   display: flex;
   align-items: flex-start;
@@ -347,7 +317,7 @@ a { color: var(--accent); }
   flex-wrap: wrap;
 }
 .resources-head h2 {
-  font-size: 28px;
+  font-size: 22px;
   letter-spacing: -0.02em;
   line-height: 1.15;
   font-weight: 500;
@@ -374,20 +344,21 @@ a { color: var(--accent); }
   align-items: center;
   gap: 8px;
   padding: 12px 18px;
-  background: var(--accent);
+  min-height: 44px;
+  background: var(--g700);
   color: #fff;
-  border: none;
+  border: 1px solid transparent;
   border-radius: var(--radius);
-  font: 500 11px 'IBM Plex Mono', ui-monospace, monospace;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
+  font: 500 14px/1.2 'Inter Tight', Inter, system-ui, sans-serif;
   cursor: pointer;
   text-decoration: none;
-  transition: background 0.15s;
-  white-space: nowrap;
+  transition: background 0.15s, border-color 0.15s;
 }
-.btn-resources:hover, .btn-primary:hover { background: var(--accent-hover); }
+.btn-primary:hover { background: var(--g900); }
 .btn-primary.self { align-self: flex-start; }
+/* A solid button always means Cohort 02; the resources button leaves the site, so it steps back to an outline */
+.btn-resources { background: transparent; color: var(--g900); border-color: var(--border-bright); }
+.btn-resources:hover { background: var(--panel); border-color: var(--g700); }
 
 .resources-list {
   display: grid;
@@ -406,11 +377,11 @@ a { color: var(--accent); }
 .resources-item:not(:first-child) { padding-left: 20px; }
 .resources-item .tag {
   font-family: 'IBM Plex Mono', ui-monospace, monospace;
-  font-size: 9.5px;
+  font-size: 11px;
   font-weight: 500;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--g700);
 }
 .resources-item .title {
   font-size: 13.5px;
@@ -430,6 +401,7 @@ a { color: var(--accent); }
   display: grid;
   grid-template-columns: 1fr 1.1fr;
   gap: 10px;
+  align-items: start;
 }
 .contact-copy {
   background: var(--panel);
@@ -454,6 +426,8 @@ a { color: var(--accent); }
   line-height: 1.65;
 }
 .contact-copy p strong { color: var(--text); font-weight: 500; }
+/* In #contact the h2 shares a wrapper with its paragraph, so the panel's gap doesn't reach it */
+.contact-section .contact-copy h2 { margin-bottom: 10px; }
 .contact-copy.note { display: grid; grid-template-columns: 1fr 300px; gap: 32px; align-items: start; }
 .contact-copy.note .note-body { display: flex; flex-direction: column; gap: 20px; }
 .contact-copy.note p { max-width: 720px; }
@@ -470,10 +444,8 @@ a { color: var(--accent); }
   border: 1px solid var(--border);
 }
 .note-photo figcaption {
-  font-family: 'IBM Plex Mono', ui-monospace, monospace;
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-family: 'Inter Tight', Inter, system-ui, sans-serif;
+  font-size: 13px;
   color: var(--muted);
   line-height: 1.5;
 }
@@ -487,10 +459,10 @@ a { color: var(--accent); }
 }
 .contact-direct .label {
   font-family: 'IBM Plex Mono', ui-monospace, monospace;
-  font-size: 10px;
-  letter-spacing: 0.16em;
+  font-size: 11px;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--g700);
 }
 .contact-direct a {
   font-family: 'IBM Plex Mono', ui-monospace, monospace;
@@ -500,9 +472,9 @@ a { color: var(--accent); }
   letter-spacing: -0.01em;
   transition: color 0.15s;
 }
-.contact-direct a:hover { color: var(--accent); }
+.contact-direct a:hover { color: var(--g700); }
 .contact-direct a.small { font-size: 12px; color: var(--muted); }
-.contact-direct a.small:hover { color: var(--accent); }
+.contact-direct a.small:hover { color: var(--g700); }
 
 .contact-form {
   background: var(--panel);
@@ -513,7 +485,7 @@ a { color: var(--accent); }
 .contact-form h3 {
   font-size: 15px;
   font-weight: 500;
-  color: var(--text);
+  color: var(--g900);
   margin-bottom: 6px;
 }
 .contact-form .help {
@@ -524,52 +496,51 @@ a { color: var(--accent); }
 }
 .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
 .field label {
-  font-family: 'IBM Plex Mono', ui-monospace, monospace;
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--accent);
+  font: 500 13px/1.3 'Inter Tight', Inter, system-ui, sans-serif;
+  color: var(--text);
 }
-.field label .opt { color: var(--dim); letter-spacing: 0.06em; text-transform: none; }
+.field label .opt { color: var(--muted); font-weight: 400; }
 .field input,
 .field select,
 .field textarea {
   width: 100%;
   padding: 10px 12px;
   background: var(--bg);
-  border: 1px solid var(--border-bright);
+  border: 1px solid var(--muted);
   border-radius: 4px;
   color: var(--text);
   font: 13.5px 'Inter Tight', Inter, system-ui, sans-serif;
-  outline: none;
+  outline: 2px solid transparent;
+  outline-offset: 1px;
   transition: border-color 0.15s, background 0.15s;
 }
 .field textarea { min-height: 72px; resize: vertical; font-family: 'Inter Tight', Inter, system-ui, sans-serif; line-height: 1.55; }
+/* Focus shows as a --g700 ring. At rest the outline is transparent rather than none, so forced-colours mode still draws it */
 .field input:focus,
 .field select:focus,
 .field textarea:focus {
-  border-color: var(--accent);
+  border-color: var(--g700);
   background: var(--panel);
+  outline-color: var(--g700);
 }
+.field ::placeholder { color: var(--muted); opacity: 1; }
 .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .field-row .field { margin-bottom: 14px; }
 
 .btn-submit {
   width: 100%;
+  min-height: 44px;
   padding: 12px;
-  background: var(--accent);
+  background: var(--g700);
   color: #fff;
-  border: none;
+  border: 1px solid transparent;
   border-radius: var(--radius);
-  font: 500 11px 'IBM Plex Mono', ui-monospace, monospace;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
+  font: 500 14px/1.2 'Inter Tight', Inter, system-ui, sans-serif;
   cursor: pointer;
   transition: background 0.15s;
   margin-top: 6px;
 }
-.btn-submit:hover { background: var(--accent-hover); }
+.btn-submit:hover { background: var(--g900); }
 .form-success {
   display: none;
   padding: 14px 0 2px;
@@ -578,9 +549,9 @@ a { color: var(--accent); }
   font-family: 'IBM Plex Mono', ui-monospace, monospace;
   font-size: 11px;
   font-weight: 500;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--g700);
   margin-bottom: 10px;
 }
 .form-success p {
@@ -592,11 +563,8 @@ a { color: var(--accent); }
 .form.submitted .form-inner { display: none; }
 .form.submitted .form-success { display: block; }
 .no-spam {
-  font-family: 'IBM Plex Mono', ui-monospace, monospace;
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--dim);
+  font: 12.5px/1.5 'Inter Tight', Inter, system-ui, sans-serif;
+  color: var(--muted);
   margin-top: 12px;
   text-align: center;
 }
@@ -616,42 +584,38 @@ a { color: var(--accent); }
   flex-wrap: wrap;
   gap: 16px;
 }
-.page-footer .left { color: var(--dim); }
+.page-footer .left { color: var(--muted); text-transform: none; letter-spacing: 0.02em; }
 .page-footer .right { display: flex; gap: 20px; flex-wrap: wrap; }
 .page-footer a { color: var(--muted); text-decoration: none; }
 .page-footer a:hover { color: var(--text); }
 
-/* Shared backdrop, seen only through the cards. Three soft glows (accent, g500, g300) drawn at page size; the script at the
-   bottom of the page sizes each card's background to the page and offsets it onto the card's own slice, so cards in a row
-   show one continuous band while the cream ground stays untouched. Without the script each card shows the glows at card
-   size, which is still consistent from card to card. Declared last so it wins over each panel's own background. */
+/* Shared backdrop, seen only through the cards. Seven soft glows drawn at page size; the script at the bottom of the page
+   sizes each card's background to the page and offsets it onto the card's own slice, so cards in a row show one
+   continuous band while the cream ground stays untouched. Without the script each card shows the glows at card size,
+   which is still consistent from card to card. Declared after the panels so it wins over each panel's own background.
+   Phones get the wash alone (see the 700px block). */
 .thesis, .status-card, .resources-card, .contact-copy, .contact-form {
   background-color: var(--panel);
-  /* Seven glows walking down the page, alternating side and shade (accent, g700, g500, g300), tight bright ones and broad
+  /* Seven glows walking down the page, alternating side and shade (g700, g500), tight bright ones and broad
      soft ones, over a faint diagonal wash (g50 at the top, g100 at the foot) so no card is ever plain white. Positions are
      % of the page: roughly cohort, steps, what-it-does, founder, resources, FAQ, form. */
   background-image:
-    radial-gradient(ellipse 55% 12% at 85% 12%, rgba(44,164,113,0.09), transparent 70%),
-    radial-gradient(ellipse 40% 8%  at 8% 24%,  rgba(15,118,110,0.06), transparent 70%),
-    radial-gradient(ellipse 50% 9%  at 92% 33%, rgba(20,163,153,0.08), transparent 70%),
-    radial-gradient(ellipse 55% 12% at 10% 47%, rgba(94,234,212,0.15), transparent 70%),
-    radial-gradient(ellipse 50% 10% at 70% 61%, rgba(44,164,113,0.08), transparent 70%),
-    radial-gradient(ellipse 45% 9%  at 14% 74%, rgba(20,163,153,0.08), transparent 70%),
-    radial-gradient(ellipse 55% 12% at 88% 92%, rgba(94,234,212,0.16), transparent 70%),
+    radial-gradient(ellipse 55% 12% at 85% 12%, rgba(20,163,153,0.06), transparent 70%),
+    radial-gradient(ellipse 40% 8%  at 8% 24%,  rgba(15,118,110,0.04), transparent 70%),
+    radial-gradient(ellipse 50% 9%  at 92% 33%, rgba(20,163,153,0.055), transparent 70%),
+    radial-gradient(ellipse 55% 12% at 10% 47%, rgba(20,163,153,0.06), transparent 70%),
+    radial-gradient(ellipse 50% 10% at 70% 61%, rgba(20,163,153,0.055), transparent 70%),
+    radial-gradient(ellipse 45% 9%  at 14% 74%, rgba(20,163,153,0.055), transparent 70%),
+    radial-gradient(ellipse 55% 12% at 88% 92%, rgba(20,163,153,0.06), transparent 70%),
     linear-gradient(160deg, rgba(240,253,250,0.5) 0%, rgba(255,255,255,0) 30%, rgba(255,255,255,0) 70%, rgba(204,251,241,0.22) 100%);
   background-repeat: no-repeat;
 }
 
-/* Entry motion */
+/* Entry motion: only the batch rows, one after another, once the batch scrolls into view (the script adds .in). Without
+   JS (no .js on the root) or with reduced motion the rows sit at rest. */
 @media (prefers-reduced-motion: no-preference) {
-  .fade-up { animation: fadeUp 0.5s cubic-bezier(.2,.7,.2,1) both; }
-  .fade-up.d1 { animation-delay: 0.06s; }
-  .fade-up.d2 { animation-delay: 0.12s; }
-  .fade-up.d3 { animation-delay: 0.18s; }
-  .fade-up.d4 { animation-delay: 0.24s; }
-  .fade-up.d5 { animation-delay: 0.30s; }
-  .fade-up.d6 { animation-delay: 0.36s; }
-  .batch-list li { animation: fadeUp 0.45s cubic-bezier(.2,.7,.2,1) both; animation-delay: calc(0.4s + var(--i) * 70ms); }
+  .js .batch:not(.in) .batch-list li { opacity: 0; }
+  .batch.in .batch-list li { animation: fadeUp 0.45s cubic-bezier(.2,.7,.2,1) both; animation-delay: calc(var(--i) * 70ms); }
 }
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(10px); }
@@ -666,6 +630,7 @@ a { color: var(--accent); }
   .thesis.featured { grid-template-columns: 1fr; }
   .status-grid { grid-template-columns: 1fr; }
   .faq-grid { grid-template-columns: 1fr; }
+  .faq-grid .status-card:nth-child(2) { border-top: 1px solid var(--border); padding-top: 22px; }
   .resources-list { grid-template-columns: repeat(2, 1fr); }
   .resources-item:nth-child(2) { border-right: none; padding-right: 0; }
   .resources-item:nth-child(3) { border-left: none; padding-left: 0; border-top: 1px solid var(--border-light); padding-top: 18px; }
@@ -681,7 +646,14 @@ a { color: var(--accent); }
   .hero { margin-bottom: 52px; }
   .hero h1 { font-size: 34px; }
   .hero-lede { font-size: 15.5px; }
-  .resources-card { padding: 24px; }
+  .hero-direct { display: inline-block; padding: 10px 0; }
+  /* One text edge for every panel, and the backdrop's wash without the glows: at phone width the page-sized glows
+     stretch into streaks. Same selectors as the backdrop rule and later in the sheet, so this wins. */
+  .thesis, .status-card, .resources-card, .contact-copy, .contact-form {
+    padding: 22px 20px;
+    background-image: linear-gradient(160deg, rgba(240,253,250,0.5) 0%, rgba(255,255,255,0) 30%, rgba(255,255,255,0) 70%, rgba(204,251,241,0.22) 100%);
+  }
+  .batch-list .who em { display: block; margin-left: 0; }
   .resources-list { grid-template-columns: 1fr; }
   .resources-item { border-right: none !important; border-left: none !important; padding: 14px 0 !important; border-top: 1px solid var(--border-light) !important; }
   .resources-item:first-child { border-top: none !important; }
@@ -689,10 +661,14 @@ a { color: var(--accent); }
   .contact-copy.note { grid-template-columns: 1fr; }
   .note-photo { max-width: 320px; }
   .field-row { grid-template-columns: 1fr; }
+  /* 16px stops iOS zooming into a focused field; 44px is a comfortable tap */
+  .field input, .field select, .field textarea { font-size: 16px; }
+  .field input, .field select { min-height: 44px; }
   .nav-bar { margin-bottom: 40px; }
 }
 </style>
 <noscript><style>.capacity .t.end { opacity: 1; }</style></noscript>
+<script>document.documentElement.classList.add('js');</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -752,15 +728,17 @@ a { color: var(--accent); }
 
   <!-- Nav -->
   <div class="nav-bar">
-    <img src="tenzi-blue.svg" alt="Tenzi" style="height: 32px; width: auto; display: block;">
+    <img src="tenzi-blue.svg" alt="Tenzi" style="height: 36.8px; width: auto; display: block;">
     <span class="nav-badge">Built with four broker teams</span>
   </div>
 
+  <main>
+
   <!-- Hero -->
-  <section class="hero fade-up">
+  <section class="hero">
     <div class="hero-copy">
-    <div class="eyebrow">For Australian insurance brokers · GI</div>
-    <h1>More clients. <em class="mark">Less admin.</em></h1>
+    <div class="eyebrow">For Australian insurance brokers (GI)</div>
+    <h1><em class="mark">More clients.</em> Less admin.</h1>
     <p class="hero-lede">
       We take the slow, manual parts of new business, renewals, and claims off your desk, so the same broker, in the same hours, can write more and serve clients better.
     </p>
@@ -772,7 +750,7 @@ a { color: var(--accent); }
       <a class="hero-direct" href="mailto:roshan@tenzi.ai" onclick="trackCta('hero_email')">or email roshan@tenzi.ai</a>
     </div>
     </div>
-    <figure class="hero-figure" aria-label="The same week, side by side: work done today against work done with Tenzi. Each disc is a done mark. The Tenzi lane fills its five rows while the other reaches three, then it runs again.">
+    <figure class="hero-figure" aria-label="The same week, side by side: work done today against work done with Tenzi. Each disc is a done mark. The Tenzi lane fills its five rows while the other reaches three.">
       <svg class="capacity" viewBox="0 0 352 188" width="352" height="188" aria-hidden="true" focusable="false">
         <text class="lab dim" x="0" y="9">Today</text>
         <text class="lab" x="184" y="9">With Tenzi</text>
@@ -867,10 +845,10 @@ a { color: var(--accent); }
 
   <!-- Cohort 02: the ask, the terms, the three months -->
   <section class="status-section" id="cohort">
-    <div class="section-label"><span>Cohort 02</span><span class="section-num">Now open · six seats</span></div>
+    <div class="section-label"><span>Cohort 02</span><span class="section-num">Now open, six seats</span></div>
 
     <div class="status-grid">
-      <div class="contact-copy fade-up d1">
+      <div class="contact-copy">
         <h2>Three months, your renewals, real numbers at the end.</h2>
         <p>Bring the renewals you'd normally grind through next month. In month one we map how you actually do them and set Tenzi up around it. In month two you send real pre-renewals through it, from your own Outlook, with your sign-off on every one. In month three we count the hours and put a dollar figure on them.</p>
         <p><strong>Four broker teams have worked with us this way since April.</strong> In August the first pre-renewals built in Tenzi went out to real clients.</p>
@@ -887,7 +865,7 @@ a { color: var(--accent); }
         </a>
       </div>
 
-      <div class="status-card fade-up d2">
+      <div class="status-card">
         <h3>The terms, plainly</h3>
         <ul class="status-list">
           <li>
@@ -918,21 +896,21 @@ a { color: var(--accent); }
       </div>
     </div>
 
-    <div class="status-card steps fade-up d3">
+    <div class="status-card steps">
       <h3>How the three months run</h3>
       <div class="resources-list">
         <div class="resources-item">
-          <span class="tag">Month one · Map</span>
+          <span class="tag">Month one: Map</span>
           <span class="title">You show us the messy reality.</span>
           <span class="sub">An hour a week. You walk us through a renewal from expiring schedule to sent email, we name the steps that eat the time, and we set Tenzi up around how you actually work. <strong>The more honest, the better the result.</strong></span>
         </div>
         <div class="resources-item">
-          <span class="tag">Month two · Use</span>
+          <span class="tag">Month two: Use</span>
           <span class="title">Real renewals go through it.</span>
           <span class="sub">Your next batch of pre-renewals, drafted by Tenzi, checked by you, sent from your own Outlook. A short check-in each week: what's saving time, what's annoying, what's missing. <strong>We fix what you feel, not what we guess.</strong></span>
         </div>
         <div class="resources-item">
-          <span class="tag">Month three · Measure</span>
+          <span class="tag">Month three: Measure</span>
           <span class="title">We count the hours together.</span>
           <span class="sub">One deeper session. Hours back per week against what month one measured, translated into dollars you can defend. Then we agree what ongoing access costs. <strong>You decide, on evidence, whether to keep going.</strong></span>
         </div>
@@ -944,17 +922,16 @@ a { color: var(--accent); }
   <section class="vision">
     <div class="section-label"><span>What it does</span><span class="section-num">Renewals first</span></div>
     <div class="thesis-row">
-      <article class="thesis featured fade-up d1">
+      <article class="thesis featured">
         <div class="thesis-body">
         <div class="thesis-head">
-          <span class="thesis-tag">Renewals</span>
           <span class="thesis-tag now">Running with partners</span>
         </div>
         <h2>Renewal packs ready before you open the file.</h2>
         <p>The expiring policy read, the pre-renewal email drafted in your words, a client-ready summary written for your sign-off. Sent from your own Outlook when you say so. <strong>The renewal becomes a review task, not a rebuild.</strong></p>
         </div>
         <figure class="batch" aria-label="An example month's batch of pre-renewals: each row is a client, most already sent from the broker's own Outlook, a few waiting on the broker's sign-off, the rest drafting.">
-          <div class="fig-head"><span class="fig-tag">Example batch · this month</span><span class="fig-tag dim">From your Outlook</span></div>
+          <div class="fig-head"><span class="fig-tag">Example batch, this month</span></div>
           <ul class="batch-list">
             <li class="sent" style="--i:0"><span class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg></span><span class="who">Joinery, Bayside <em>Business pack</em></span><span class="state">Sent</span></li>
             <li class="sent" style="--i:1"><span class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg></span><span class="who">Transport, Dandenong <em>Fleet and liability</em></span><span class="state">Sent</span></li>
@@ -969,18 +946,16 @@ a { color: var(--accent); }
         </figure>
       </article>
 
-      <article class="thesis fade-up d2">
+      <article class="thesis">
         <div class="thesis-head">
-          <span class="thesis-tag">New business</span>
           <span class="thesis-tag">Next</span>
         </div>
         <h2>New business without the re-keying.</h2>
         <p>Client details captured once, then the proposal forms and quote slips filled from them. <strong>You check and place. The typing is done.</strong></p>
       </article>
 
-      <article class="thesis fade-up d3">
+      <article class="thesis">
         <div class="thesis-head">
-          <span class="thesis-tag">Claims</span>
           <span class="thesis-tag">In design with partners</span>
         </div>
         <h2>Claims that keep moving.</h2>
@@ -992,7 +967,7 @@ a { color: var(--accent); }
   <!-- Founder note -->
   <section class="status-section">
     <div class="section-label"><span>Why I'm building this</span><span class="section-num">Roshan Khozouei</span></div>
-    <div class="contact-copy note fade-up">
+    <div class="contact-copy note">
       <div class="note-body">
         <h2>I came to this as a buyer.</h2>
         <p>Getting business insurance for my own company took months of back and forth, and I came out curious about the other side of the process. So I started asking brokers, more than fifty of them this year, how the work actually gets done. What I found was people who had gone out on their own, doing skilled work for clients, and losing their evenings to admin nobody pays for. <strong>I run a small business too. This is built for that.</strong></p>
@@ -1007,7 +982,7 @@ a { color: var(--accent); }
         <a href="https://resources.tenzi.ai/about.html" target="_blank" rel="noopener" onclick="trackCta('founder_about')">
           <img src="about-insurance-news-top20-2026.jpg" width="754" height="913" loading="lazy" alt="Page 38 of the Insurance News Top 20 Authorised Rep Networks 2026 report: an interview with Roshan Khozouei, headed Data cruncher, alongside his portrait.">
         </a>
-        <figcaption>Insurance News · Top 20 Authorised Rep Networks 2026 · p. 38</figcaption>
+        <figcaption>Insurance News, Top 20 Authorised Rep Networks 2026, p. 38</figcaption>
       </figure>
       <div class="resources-list">
         <div class="resources-item">
@@ -1036,9 +1011,9 @@ a { color: var(--accent); }
 
   <!-- Resources dedicated card -->
   <section class="resources-section">
-    <div class="section-label"><span>Free for the industry</span><span class="section-num">resources.tenzi.ai</span></div>
+    <div class="section-label"><span>Free for the industry</span></div>
 
-    <div class="resources-card fade-up">
+    <div class="resources-card">
       <div class="resources-head">
         <div>
           <h2>The research we run to build Tenzi, published free at resources.tenzi.ai.</h2>
@@ -1079,35 +1054,29 @@ a { color: var(--accent); }
 
   <!-- FAQ -->
   <section class="faq-section">
-    <div class="section-label"><span>Common questions</span><span class="section-num">Straight answers</span></div>
+    <div class="section-label"><h2>Common questions</h2></div>
     <div class="faq-grid">
-      <div class="status-card fade-up d1">
-        <span class="card-tag">The product</span>
+      <div class="status-card">
         <h3>What does Tenzi actually do today?</h3>
         <p>It builds your pre-renewal emails. Tenzi reads the expiring policy, drafts the email in your words with a client-ready summary, and you send it from your own Outlook once you've looked it over. New business form filling is next. Claims is in design with partners. <strong>We'd rather tell you what works now than list what's coming.</strong></p>
       </div>
-      <div class="status-card fade-up d2">
-        <span class="card-tag">Who it's for</span>
+      <div class="status-card">
         <h3>Who is it for?</h3>
         <p>Australian general insurance brokers who run renewals for real clients: Authorised Representatives under a licensee, and brokerages holding their own AFSL. <strong>If the renewal pile is what stops you growing the book, you're who we build for.</strong></p>
       </div>
-      <div class="status-card fade-up d3">
-        <span class="card-tag">Cost</span>
+      <div class="status-card">
         <h3>What does it cost?</h3>
         <p>$100 a month for the three months of Cohort 02. After that, a monthly price per broker, no lock-in, agreed in month three against the hours it has given back. Expect a fraction of what an admin hire costs. <strong>If it isn't earning its keep, you walk.</strong></p>
       </div>
-      <div class="status-card fade-up d4">
-        <span class="card-tag">The three months</span>
+      <div class="status-card">
         <h3>What happens in the three months?</h3>
         <p>Month one, we map how you actually do renewals and set Tenzi up around it. Month two, you send real pre-renewals through it from your own Outlook, with your sign-off on every one. Month three, we count the hours and put a dollar figure on them. Your side is about an hour a week, plus honest feedback. <strong>Six seats in Cohort 02, and they start as they fill.</strong> <a href="#contact" onclick="trackCta('faq_cohort')">Put your hand up below.</a></p>
       </div>
-      <div class="status-card fade-up d5">
-        <span class="card-tag">Licensees</span>
+      <div class="status-card">
         <h3>I'm under a licensee. Can I still join?</h3>
         <p>Yes, with their yes. Licensees rightly want to know where client data goes and who can see it. <strong>We bring a short governance summary and a walkthrough for them.</strong> Brokers with their own AFSL skip this step.</p>
       </div>
-      <div class="status-card fade-up d6">
-        <span class="card-tag">Your data</span>
+      <div class="status-card">
         <h3>Where does client data go?</h3>
         <p>Tenzi runs on Microsoft Azure in the Asia-Pacific region and connects to your own Microsoft 365 mailbox, with your admin's consent. <strong>Nothing goes to a client or an insurer without your sign-off</strong>, and you can see where each detail in a draft came from.</p>
       </div>
@@ -1116,10 +1085,10 @@ a { color: var(--accent); }
 
   <!-- Put your hand up -->
   <section class="contact-section" id="contact">
-    <div class="section-label"><span>Put your hand up</span><span class="section-num">Cohort 02</span></div>
+    <div class="section-label"><span>Put your hand up</span></div>
 
     <div class="contact-grid">
-      <div class="contact-copy fade-up d1">
+      <div class="contact-copy">
         <div>
           <h2>Tell us about your renewals.</h2>
           <p>A few details so we can tell quickly whether Cohort 02 fits your book. <strong>Roshan reads every one</strong> and replies within two working days.</p>
@@ -1132,7 +1101,7 @@ a { color: var(--accent); }
         </div>
       </div>
 
-      <form class="contact-form form fade-up d2" id="contactForm" onsubmit="return submitContact(event)">
+      <form class="contact-form form" id="contactForm" onsubmit="return submitContact(event)">
         <div class="form-inner">
           <h3>Cohort 02</h3>
           <p class="help">Six seats. Just the shape of your renewals, nothing more.</p>
@@ -1203,15 +1172,17 @@ a { color: var(--accent); }
           </div>
 
           <button type="submit" class="btn-submit">Put my hand up</button>
-          <p class="no-spam">No list, no marketing · Details used only to reply</p>
+          <p class="no-spam">No list, no marketing. Details used only to reply.</p>
         </div>
-        <div class="form-success">
+        <div class="form-success" tabindex="-1" role="status">
           <div class="tick">✓ Got it</div>
           <p>Thanks. Roshan will be back to you within <strong>two working days</strong>, from <strong><a href="mailto:roshan@tenzi.ai">roshan@tenzi.ai</a></strong>.</p>
         </div>
       </form>
     </div>
   </section>
+
+  </main>
 
   <!-- Footer -->
   <footer class="page-footer">
@@ -1235,18 +1206,19 @@ a { color: var(--accent); }
     var wrap = document.querySelector('.wrap');
     var panels = document.querySelectorAll('.thesis, .status-card, .resources-card, .contact-copy, .contact-form');
     function offsetOf(el) {
-      // Layout position, so the entry animation's transform doesn't skew it.
+      // Layout position, not the painted box, so a transform can't skew it.
       var x = 0, y = 0;
       while (el) { x += el.offsetLeft; y += el.offsetTop; el = el.offsetParent; }
       return { x: x, y: y };
     }
     function place() {
+      // Read every offset before writing any style, so the browser works out styles once rather than once per panel.
       var page = offsetOf(wrap);
       var size = wrap.offsetWidth + 'px ' + wrap.offsetHeight + 'px';
-      panels.forEach(function (el) {
-        var o = offsetOf(el);
+      var offsets = Array.prototype.map.call(panels, offsetOf);
+      panels.forEach(function (el, i) {
         el.style.backgroundSize = size;
-        el.style.backgroundPosition = (page.x - o.x) + 'px ' + (page.y - o.y) + 'px';
+        el.style.backgroundPosition = (page.x - offsets[i].x) + 'px ' + (page.y - offsets[i].y) + 'px';
       });
     }
     place();
@@ -1256,8 +1228,9 @@ a { color: var(--accent); }
   })();
 
   // Hero figure: two lanes on one clock. Each adds a done mark at its own pace (Today one every 400 ms, With Tenzi one
-  // every 240 ms), so when the Tenzi lane fills its twenty the other has twelve: three rows to five. Hold, clear, run
-  // again. Runs only while the figure is on screen; reduced motion shows the end state. The pace is illustrative, not a
+  // every 240 ms), so when the Tenzi lane fills its twenty the other has twelve: three rows to five. It plays once when
+  // the figure comes into view (about 4.8 s) and holds the end state; once the figure is fully off screen it stops and
+  // clears, so it plays again on the way back. Reduced motion shows the end state. The pace is illustrative, not a
   // measured figure (see CLAUDE.md).
   (function () {
     var svg = document.querySelector('.capacity');
@@ -1267,26 +1240,40 @@ a { color: var(--accent); }
       { marks: svg.querySelectorAll('.lane-tenzi .t'), every: 240 }
     ];
     var total = lanes[1].marks.length;
-    var fill = total * lanes[1].every, hold = 4500, reset = 450, cycle = fill + hold + reset;
+    var fill = total * lanes[1].every;
     function paint(t) {
-      var clearing = t >= fill + hold, elapsed = Math.min(t, fill);
       lanes.forEach(function (lane) {
-        var n = clearing ? 0 : Math.min(total, Math.floor(elapsed / lane.every));
+        var n = Math.min(total, Math.floor(t / lane.every));
         lane.marks.forEach(function (el, i) { el.classList.toggle('on', i < n); });
       });
     }
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { paint(fill); return; }
-    var running = false, start = 0;
+    var running = false, played = false, start = 0;
     function frame(now) {
       if (!running) return;
-      paint((now - start) % cycle);
-      requestAnimationFrame(frame);
+      var t = Math.min(now - start, fill);
+      paint(t);
+      if (t < fill) requestAnimationFrame(frame); else running = false;
     }
-    function run() { if (running) return; running = true; start = performance.now(); requestAnimationFrame(frame); }
-    if (!('IntersectionObserver' in window)) { run(); return; }
+    function play() { if (played) return; played = running = true; start = performance.now(); requestAnimationFrame(frame); }
+    function clear() { played = running = false; paint(0); }
+    if (!('IntersectionObserver' in window)) { play(); return; }
+    // In view once 30% shows, so the fill is seen from its start; out of view only once nothing shows.
     new IntersectionObserver(function (entries) {
-      if (entries[0].isIntersecting) run(); else running = false;
-    }).observe(svg);
+      if (!entries[0].isIntersecting) clear();
+      else if (entries[0].intersectionRatio >= 0.3) play();
+    }, { threshold: [0, 0.3] }).observe(svg);
+  })();
+
+  // Example batch: the rows arrive one after another the first time the batch scrolls into view (see the entry-motion rule).
+  (function () {
+    var batch = document.querySelector('.batch');
+    if (!batch) return;
+    if (!('IntersectionObserver' in window)) { batch.classList.add('in'); return; }
+    var seen = new IntersectionObserver(function (entries) {
+      if (entries[0].isIntersecting) { batch.classList.add('in'); seen.disconnect(); }
+    }, { threshold: 0.3 });
+    seen.observe(batch);
   })();
 
   function submitContact(e) {
@@ -1317,6 +1304,8 @@ a { color: var(--accent); }
     });
     tenziTrack.trackCta('contact_submit:cohort');
     form.classList.add('submitted');
+    // The button that had focus is now hidden; focus the success view so it is announced and keyboard users aren't lost.
+    form.querySelector('.form-success').focus();
     return false;
   }
 </script>
