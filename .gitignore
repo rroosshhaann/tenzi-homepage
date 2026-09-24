@@ -1,3 +1,6 @@
 *:Zone.Identifier
 .DS_Store
 Thumbs.db
+
+# Project notes for Claude stay local: the repo is public and GitHub Pages serves its root
+CLAUDE.md

@@ -55,8 +55,6 @@ There is no build. Open `index.html` in a browser. Tracking fires to the live en
 
 The page is one file with inline CSS. To add a section, copy an existing pattern (`.thesis`, `.status-card`, `.resources-item`) and place it inside `.wrap`. Keep CTA buttons wired with `onclick="trackCta('action_name')"` — the global alias from `track.js` captures it.
 
-See [`CLAUDE.md`](./CLAUDE.md) for design tokens, the full CTA inventory, contact form internals, and deployment detail.
-
 ## Contact
 
 `roshan@tenzi.ai`
